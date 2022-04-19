@@ -1,0 +1,27 @@
+{
+  "golfKeyApp": {
+    "golfBag": {
+      "home": {
+        "title": "Golf Bags",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Golf Bag",
+        "createOrEditLabel": "Create or edit a Golf Bag",
+        "notFound": "No Golf Bags found"
+      },
+      "created": "A new Golf Bag is created with identifier {{ param }}",
+      "updated": "A Golf Bag is updated with identifier {{ param }}",
+      "deleted": "A Golf Bag is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Golf Bag {{ id }}?"
+      },
+      "detail": {
+        "title": "Golf Bag"
+      },
+      "id": "ID",
+      "bagId": "Bag Id",
+      "userName": "User Name",
+      "user": "User",
+      "clubs": "Clubs"
+    }
+  }
+}

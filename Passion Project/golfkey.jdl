@@ -1,0 +1,53 @@
+entity GolfBag{
+    BagId Long
+    UserName String
+
+}
+
+entity ClubStats{
+	BagId Long
+	ClubDistance String maxlength(20)
+    Comment String maxlength(128)
+}
+entity Clubs{
+	clubname ClubName
+}
+
+enum ClubName {
+   DRIVER,
+   SIXTYWEDGE,
+   FIFTYEIGHTWEDGE,
+   SANDWEDGE,
+   PWEDGE,
+   NINEIRON,
+   EIGHTIRON,
+   SEVENIRON,
+   SEVENHYBRID,
+   SEVENWOOD,
+   SIXIRON,
+   SIXHYBRID,
+   SIXWOOD,
+   FIVEIRON,
+   FIVEHYBRID,
+   FIVEWOOD,
+   FOURIRON,
+   FOURHYBRID,
+   FOURWOOD,
+   THREEIRON,
+   THREEHYBRID,
+   THREEWOOD
+}
+
+relationship OneToOne{
+	 GolfBag{user(login)} to User
+}
+
+relationship OneToMany{
+	ClubStats to Clubs{clubStats}
+}
+
+relationship ManyToMany{
+	GolfBag{clubs} to Clubs{golfBag(clubs)}
+
+}
+

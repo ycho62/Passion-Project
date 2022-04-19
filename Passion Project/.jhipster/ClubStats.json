@@ -1,0 +1,39 @@
+{
+  "applications": "*",
+  "changelogDate": "20220419015644",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "club_stats",
+  "fields": [
+    {
+      "fieldName": "bagId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "clubDistance",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "20"
+    },
+    {
+      "fieldName": "comment",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "128"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "ClubStats",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "clubs",
+      "otherEntityRelationshipName": "clubStats",
+      "relationshipName": "clubs",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "no"
+}

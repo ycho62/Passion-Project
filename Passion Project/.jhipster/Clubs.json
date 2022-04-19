@@ -1,0 +1,36 @@
+{
+  "applications": "*",
+  "changelogDate": "20220419015645",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "clubs",
+  "fields": [
+    {
+      "fieldName": "clubname",
+      "fieldType": "ClubName",
+      "fieldValues": "DRIVER,SIXTYWEDGE,FIFTYEIGHTWEDGE,SANDWEDGE,PWEDGE,NINEIRON,EIGHTIRON,SEVENIRON,SEVENHYBRID,SEVENWOOD,SIXIRON,SIXHYBRID,SIXWOOD,FIVEIRON,FIVEHYBRID,FIVEWOOD,FOURIRON,FOURHYBRID,FOURWOOD,THREEIRON,THREEHYBRID,THREEWOOD"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Clubs",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "clubStats",
+      "otherEntityRelationshipName": "clubs",
+      "relationshipName": "clubStats",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "clubs",
+      "otherEntityName": "golfBag",
+      "otherEntityRelationshipName": "clubs",
+      "ownerSide": false,
+      "relationshipName": "golfBag",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "no"
+}

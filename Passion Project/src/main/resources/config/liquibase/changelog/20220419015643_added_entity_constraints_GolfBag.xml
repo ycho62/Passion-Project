@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity GolfBag.
+    -->
+    <changeSet id="20220419015643-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="golf_bag"
+                                 constraintName="fk_golf_bag__user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="golf_bag_id"
+                                 baseTableName="rel_golf_bag__clubs"
+                                 constraintName="fk_rel_golf_bag__clubs__golf_bag_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="golf_bag"/>
+
+        <addForeignKeyConstraint baseColumnNames="clubs_id"
+                                 baseTableName="rel_golf_bag__clubs"
+                                 constraintName="fk_rel_golf_bag__clubs__clubs_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="clubs"/>
+    </changeSet>
+</databaseChangeLog>

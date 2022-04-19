@@ -1,0 +1,40 @@
+{
+  "applications": "*",
+  "changelogDate": "20220419015643",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "golf_bag",
+  "fields": [
+    {
+      "fieldName": "bagId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "userName",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "GolfBag",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "login",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "golfBag",
+      "ownerSide": true,
+      "relationshipName": "user",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "clubs",
+      "otherEntityRelationshipName": "golfBag",
+      "ownerSide": true,
+      "relationshipName": "clubs",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "no"
+}

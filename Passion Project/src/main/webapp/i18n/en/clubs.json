@@ -1,0 +1,26 @@
+{
+  "golfKeyApp": {
+    "clubs": {
+      "home": {
+        "title": "Clubs",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Clubs",
+        "createOrEditLabel": "Create or edit a Clubs",
+        "notFound": "No Clubs found"
+      },
+      "created": "A new Clubs is created with identifier {{ param }}",
+      "updated": "A Clubs is updated with identifier {{ param }}",
+      "deleted": "A Clubs is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Clubs {{ id }}?"
+      },
+      "detail": {
+        "title": "Clubs"
+      },
+      "id": "ID",
+      "clubname": "Clubname",
+      "clubStats": "Club Stats",
+      "golfBag": "Golf Bag"
+    }
+  }
+}
