@@ -28,6 +28,7 @@ export const Clubs = (props: RouteComponentProps<{ url: string }>) => {
 
   return (
     <div>
+      <h1>Your Clubs</h1>
       <h2 id="clubs-heading" data-cy="ClubsHeading">
         <Translate contentKey="golfKeyApp.clubs.home.title">Clubs</Translate>
         <div className="d-flex justify-content-end">
