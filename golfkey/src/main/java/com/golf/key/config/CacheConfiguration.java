@@ -48,6 +48,13 @@ public class CacheConfiguration {
             createCache(cm, com.golf.key.domain.User.class.getName());
             createCache(cm, com.golf.key.domain.Authority.class.getName());
             createCache(cm, com.golf.key.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.golf.key.domain.GolfBag.class.getName());
+            createCache(cm, com.golf.key.domain.GolfBag.class.getName() + ".attachments");
+            createCache(cm, com.golf.key.domain.GolfBag.class.getName() + ".comments");
+            createCache(cm, com.golf.key.domain.GolfBag.class.getName() + ".clubStats");
+            createCache(cm, com.golf.key.domain.ClubStats.class.getName());
+            createCache(cm, com.golf.key.domain.Comment.class.getName());
+            createCache(cm, com.golf.key.domain.Attachment.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

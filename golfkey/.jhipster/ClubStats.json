@@ -1,0 +1,30 @@
+{
+  "applications": "*",
+  "changelogDate": "20220427050136",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "club_stats",
+  "fields": [
+    {
+      "fieldName": "clubDistance",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "20"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "ClubStats",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "clubTypes",
+      "otherEntityName": "golfBag",
+      "otherEntityRelationshipName": "clubStats",
+      "relationshipName": "golfBag",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

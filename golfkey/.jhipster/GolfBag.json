@@ -1,0 +1,54 @@
+{
+  "applications": "*",
+  "changelogDate": "20220427050135",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "golf_bag",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "20"
+    },
+    {
+      "fieldName": "clubs",
+      "fieldType": "ClubTypes",
+      "fieldValues": "DRIVER (Driver),SIXTYWEDGE (60 Degree Wedge),FIFTYEIGHTWEDGE (58 Degree Wedge),SANDWEDGE (Sand Wedge),PWEDGE (Pitching Wedge),NINEIRON (9 Iron),EIGHTIRON (9 Iron),SEVENIRON (9 Iron),SEVENHYBRID (7 Hybrid),SEVENWOOD (7 Wood),SIXIRON (9 Iron),SIXHYBRID (7 Hybrid),SIXWOOD (6 Wood),FIVEIRON (9 Iron),FIVEHYBRID (7 Hybrid),FIVEWOOD (5 Wood),FOURIRON (9 Iron),THREEIRON (9 Iron),THREEHYBRID (3 Hybrid),THREEWOOD (3 Wood)"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "GolfBag",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "login",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "golfBag",
+      "ownerSide": true,
+      "relationshipName": "user",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "attachment",
+      "otherEntityRelationshipName": "golfBag",
+      "relationshipName": "attachment",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "comment",
+      "otherEntityRelationshipName": "golfBag",
+      "relationshipName": "comment",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "clubStats",
+      "otherEntityRelationshipName": "golfBag",
+      "relationshipName": "clubStats",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

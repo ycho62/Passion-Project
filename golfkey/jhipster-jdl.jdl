@@ -1,0 +1,60 @@
+entity GolfBag{
+    name String required maxlength(20)
+    clubs ClubTypes
+}
+
+
+entity ClubStats{
+	clubDistance String maxlength(20)
+}
+
+
+
+entity Comment {
+    date ZonedDateTime
+    text String
+}
+
+entity Attachment{
+    name String required minlength(3)
+    date ZonedDateTime
+    file Blob
+}
+
+enum ClubTypes {
+   DRIVER("Driver")
+   SIXTYWEDGE("60 Degree Wedge")
+   FIFTYEIGHTWEDGE("58 Degree Wedge")
+   SANDWEDGE("Sand Wedge")
+   PWEDGE("Pitching Wedge")
+   NINEIRON("9 Iron")
+   EIGHTIRON("9 Iron")
+   SEVENIRON("9 Iron")
+   SEVENHYBRID("7 Hybrid")
+   SEVENWOOD("7 Wood")
+   SIXIRON("9 Iron")
+   SIXHYBRID("7 Hybrid")
+   SIXWOOD("6 Wood")
+   FIVEIRON("9 Iron")
+   FIVEHYBRID("7 Hybrid")
+   FIVEWOOD("5 Wood")
+   FOURIRON("9 Iron")
+   THREEIRON("9 Iron")
+   THREEHYBRID("3 Hybrid")
+   THREEWOOD("3 Wood")
+}
+
+relationship OneToOne{
+	 GolfBag{user(login)} to User{GolfBag(name)}
+     
+}
+
+relationship OneToMany{
+    GolfBag{attachment(id)} to Attachment{GolfBag(clubTypes)}
+    GolfBag{comment(id)} to Comment{golfBag(clubTypes)} 
+    GolfBag{clubStats(id)} to ClubStats{golfBag(clubTypes)}
+}
+
+
+
+service all with serviceImpl
