@@ -51,13 +51,7 @@ export const ClubStats = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="golfKeyApp.clubStats.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="golfKeyApp.clubStats.bagId">Bag Id</Translate>
-                </th>
-                <th>
                   <Translate contentKey="golfKeyApp.clubStats.clubDistance">Club Distance</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="golfKeyApp.clubStats.comment">Comment</Translate>
                 </th>
                 <th />
               </tr>
@@ -70,9 +64,7 @@ export const ClubStats = (props: RouteComponentProps<{ url: string }>) => {
                       {clubStats.id}
                     </Button>
                   </td>
-                  <td>{clubStats.bagId}</td>
                   <td>{clubStats.clubDistance}</td>
-                  <td>{clubStats.comment}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/club-stats/${clubStats.id}`} color="info" size="sm" data-cy="entityDetailsButton">

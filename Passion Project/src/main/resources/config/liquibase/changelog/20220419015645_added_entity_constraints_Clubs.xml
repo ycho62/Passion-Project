@@ -8,6 +8,12 @@
     -->
     <changeSet id="20220419015645-2" author="jhipster">
 
+        <addForeignKeyConstraint baseColumnNames="golf_bag_id"
+                                 baseTableName="clubs"
+                                 constraintName="fk_clubs__golf_bag_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="golf_bag"/>
+
         <addForeignKeyConstraint baseColumnNames="club_stats_id"
                                  baseTableName="clubs"
                                  constraintName="fk_clubs__club_stats_id"

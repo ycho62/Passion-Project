@@ -119,8 +119,8 @@ public class ClubsResource {
         Optional<Clubs> result = clubsRepository
             .findById(clubs.getId())
             .map(existingClubs -> {
-                if (clubs.getClubname() != null) {
-                    existingClubs.setClubname(clubs.getClubname());
+                if (clubs.getClubtype() != null) {
+                    existingClubs.setClubtype(clubs.getClubtype());
                 }
 
                 return existingClubs;
@@ -136,12 +136,13 @@ public class ClubsResource {
     /**
      * {@code GET  /clubs} : get all the clubs.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of clubs in body.
      */
     @GetMapping("/clubs")
-    public List<Clubs> getAllClubs() {
+    public List<Clubs> getAllClubs(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Clubs");
-        return clubsRepository.findAll();
+        return clubsRepository.findAllWithEagerRelationships();
     }
 
     /**
@@ -153,7 +154,7 @@ public class ClubsResource {
     @GetMapping("/clubs/{id}")
     public ResponseEntity<Clubs> getClubs(@PathVariable Long id) {
         log.debug("REST request to get Clubs : {}", id);
-        Optional<Clubs> clubs = clubsRepository.findById(id);
+        Optional<Clubs> clubs = clubsRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(clubs);
     }
 

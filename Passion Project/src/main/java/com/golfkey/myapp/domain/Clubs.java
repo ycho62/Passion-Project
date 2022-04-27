@@ -1,7 +1,7 @@
 package com.golfkey.myapp.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.golfkey.myapp.domain.enumeration.ClubName;
+import com.golfkey.myapp.domain.enumeration.ClubType;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,17 +25,20 @@ public class Clubs implements Serializable {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "clubname")
-    private ClubName clubname;
+    @Column(name = "clubtype")
+    private ClubType clubtype;
+
+    @OneToMany(mappedBy = "clubs")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "clubs" }, allowSetters = true)
+    private Set<Attachment> attachments = new HashSet<>();
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "clubs" }, allowSetters = true)
-    private ClubStats clubStats;
+    @JsonIgnoreProperties(value = { "user" }, allowSetters = true)
+    private GolfBag golfBag;
 
-    @ManyToMany(mappedBy = "clubs")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "user", "clubs" }, allowSetters = true)
-    private Set<GolfBag> golfBags = new HashSet<>();
+    @ManyToOne
+    private ClubStats clubStats;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -52,17 +55,61 @@ public class Clubs implements Serializable {
         this.id = id;
     }
 
-    public ClubName getClubname() {
-        return this.clubname;
+    public ClubType getClubtype() {
+        return this.clubtype;
     }
 
-    public Clubs clubname(ClubName clubname) {
-        this.setClubname(clubname);
+    public Clubs clubtype(ClubType clubtype) {
+        this.setClubtype(clubtype);
         return this;
     }
 
-    public void setClubname(ClubName clubname) {
-        this.clubname = clubname;
+    public void setClubtype(ClubType clubtype) {
+        this.clubtype = clubtype;
+    }
+
+    public Set<Attachment> getAttachments() {
+        return this.attachments;
+    }
+
+    public void setAttachments(Set<Attachment> attachments) {
+        if (this.attachments != null) {
+            this.attachments.forEach(i -> i.setClubs(null));
+        }
+        if (attachments != null) {
+            attachments.forEach(i -> i.setClubs(this));
+        }
+        this.attachments = attachments;
+    }
+
+    public Clubs attachments(Set<Attachment> attachments) {
+        this.setAttachments(attachments);
+        return this;
+    }
+
+    public Clubs addAttachment(Attachment attachment) {
+        this.attachments.add(attachment);
+        attachment.setClubs(this);
+        return this;
+    }
+
+    public Clubs removeAttachment(Attachment attachment) {
+        this.attachments.remove(attachment);
+        attachment.setClubs(null);
+        return this;
+    }
+
+    public GolfBag getGolfBag() {
+        return this.golfBag;
+    }
+
+    public void setGolfBag(GolfBag golfBag) {
+        this.golfBag = golfBag;
+    }
+
+    public Clubs golfBag(GolfBag golfBag) {
+        this.setGolfBag(golfBag);
+        return this;
     }
 
     public ClubStats getClubStats() {
@@ -75,37 +122,6 @@ public class Clubs implements Serializable {
 
     public Clubs clubStats(ClubStats clubStats) {
         this.setClubStats(clubStats);
-        return this;
-    }
-
-    public Set<GolfBag> getGolfBags() {
-        return this.golfBags;
-    }
-
-    public void setGolfBags(Set<GolfBag> golfBags) {
-        if (this.golfBags != null) {
-            this.golfBags.forEach(i -> i.removeClubs(this));
-        }
-        if (golfBags != null) {
-            golfBags.forEach(i -> i.addClubs(this));
-        }
-        this.golfBags = golfBags;
-    }
-
-    public Clubs golfBags(Set<GolfBag> golfBags) {
-        this.setGolfBags(golfBags);
-        return this;
-    }
-
-    public Clubs addGolfBag(GolfBag golfBag) {
-        this.golfBags.add(golfBag);
-        golfBag.getClubs().add(this);
-        return this;
-    }
-
-    public Clubs removeGolfBag(GolfBag golfBag) {
-        this.golfBags.remove(golfBag);
-        golfBag.getClubs().remove(this);
         return this;
     }
 
@@ -133,7 +149,7 @@ public class Clubs implements Serializable {
     public String toString() {
         return "Clubs{" +
             "id=" + getId() +
-            ", clubname='" + getClubname() + "'" +
+            ", clubtype='" + getClubtype() + "'" +
             "}";
     }
 }

@@ -6,12 +6,10 @@
   "entityTableName": "golf_bag",
   "fields": [
     {
-      "fieldName": "bagId",
-      "fieldType": "Long"
-    },
-    {
-      "fieldName": "userName",
-      "fieldType": "String"
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "20"
     }
   ],
   "fluentMethods": true,
@@ -21,19 +19,11 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityField": "login",
       "otherEntityName": "user",
       "otherEntityRelationshipName": "golfBag",
       "ownerSide": true,
       "relationshipName": "user",
       "relationshipType": "one-to-one"
-    },
-    {
-      "otherEntityName": "clubs",
-      "otherEntityRelationshipName": "golfBag",
-      "ownerSide": true,
-      "relationshipName": "clubs",
-      "relationshipType": "many-to-many"
     }
   ],
   "service": "no"

@@ -10,8 +10,6 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { IUser } from 'app/shared/model/user.model';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
-import { IClubs } from 'app/shared/model/clubs.model';
-import { getEntities as getClubs } from 'app/entities/clubs/clubs.reducer';
 import { IGolfBag } from 'app/shared/model/golf-bag.model';
 import { getEntity, updateEntity, createEntity, reset } from './golf-bag.reducer';
 
@@ -21,7 +19,6 @@ export const GolfBagUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
   const users = useAppSelector(state => state.userManagement.users);
-  const clubs = useAppSelector(state => state.clubs.entities);
   const golfBagEntity = useAppSelector(state => state.golfBag.entity);
   const loading = useAppSelector(state => state.golfBag.loading);
   const updating = useAppSelector(state => state.golfBag.updating);
@@ -38,7 +35,6 @@ export const GolfBagUpdate = (props: RouteComponentProps<{ id: string }>) => {
     }
 
     dispatch(getUsers({}));
-    dispatch(getClubs({}));
   }, []);
 
   useEffect(() => {
@@ -51,7 +47,6 @@ export const GolfBagUpdate = (props: RouteComponentProps<{ id: string }>) => {
     const entity = {
       ...golfBagEntity,
       ...values,
-      clubs: mapIdList(values.clubs),
       user: users.find(it => it.id.toString() === values.user.toString()),
     };
 
@@ -68,7 +63,6 @@ export const GolfBagUpdate = (props: RouteComponentProps<{ id: string }>) => {
       : {
           ...golfBagEntity,
           user: golfBagEntity?.user?.id,
-          clubs: golfBagEntity?.clubs?.map(e => e.id.toString()),
         };
 
   return (
@@ -96,35 +90,21 @@ export const GolfBagUpdate = (props: RouteComponentProps<{ id: string }>) => {
                   validate={{ required: true }}
                 />
               ) : null}
-              <ValidatedField label={translate('golfKeyApp.golfBag.bagId')} id="golf-bag-bagId" name="bagId" data-cy="bagId" type="text" />
               <ValidatedField
-                label={translate('golfKeyApp.golfBag.userName')}
-                id="golf-bag-userName"
-                name="userName"
-                data-cy="userName"
+                label={translate('golfKeyApp.golfBag.name')}
+                id="golf-bag-name"
+                name="name"
+                data-cy="name"
                 type="text"
+                validate={{
+                  required: { value: true, message: translate('entity.validation.required') },
+                  maxLength: { value: 20, message: translate('entity.validation.maxlength', { max: 20 }) },
+                }}
               />
               <ValidatedField id="golf-bag-user" name="user" data-cy="user" label={translate('golfKeyApp.golfBag.user')} type="select">
                 <option value="" key="0" />
                 {users
                   ? users.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.login}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <ValidatedField
-                label={translate('golfKeyApp.golfBag.clubs')}
-                id="golf-bag-clubs"
-                data-cy="clubs"
-                type="select"
-                multiple
-                name="clubs"
-              >
-                <option value="" key="0" />
-                {clubs
-                  ? clubs.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
                         {otherEntity.id}
                       </option>

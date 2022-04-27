@@ -29,14 +29,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class ClubStatsResourceIT {
 
-    private static final Long DEFAULT_BAG_ID = 1L;
-    private static final Long UPDATED_BAG_ID = 2L;
-
     private static final String DEFAULT_CLUB_DISTANCE = "AAAAAAAAAA";
     private static final String UPDATED_CLUB_DISTANCE = "BBBBBBBBBB";
-
-    private static final String DEFAULT_COMMENT = "AAAAAAAAAA";
-    private static final String UPDATED_COMMENT = "BBBBBBBBBB";
 
     private static final String ENTITY_API_URL = "/api/club-stats";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -62,7 +56,7 @@ class ClubStatsResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static ClubStats createEntity(EntityManager em) {
-        ClubStats clubStats = new ClubStats().bagId(DEFAULT_BAG_ID).clubDistance(DEFAULT_CLUB_DISTANCE).comment(DEFAULT_COMMENT);
+        ClubStats clubStats = new ClubStats().clubDistance(DEFAULT_CLUB_DISTANCE);
         return clubStats;
     }
 
@@ -73,7 +67,7 @@ class ClubStatsResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static ClubStats createUpdatedEntity(EntityManager em) {
-        ClubStats clubStats = new ClubStats().bagId(UPDATED_BAG_ID).clubDistance(UPDATED_CLUB_DISTANCE).comment(UPDATED_COMMENT);
+        ClubStats clubStats = new ClubStats().clubDistance(UPDATED_CLUB_DISTANCE);
         return clubStats;
     }
 
@@ -95,9 +89,7 @@ class ClubStatsResourceIT {
         List<ClubStats> clubStatsList = clubStatsRepository.findAll();
         assertThat(clubStatsList).hasSize(databaseSizeBeforeCreate + 1);
         ClubStats testClubStats = clubStatsList.get(clubStatsList.size() - 1);
-        assertThat(testClubStats.getBagId()).isEqualTo(DEFAULT_BAG_ID);
         assertThat(testClubStats.getClubDistance()).isEqualTo(DEFAULT_CLUB_DISTANCE);
-        assertThat(testClubStats.getComment()).isEqualTo(DEFAULT_COMMENT);
     }
 
     @Test
@@ -130,9 +122,7 @@ class ClubStatsResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(clubStats.getId().intValue())))
-            .andExpect(jsonPath("$.[*].bagId").value(hasItem(DEFAULT_BAG_ID.intValue())))
-            .andExpect(jsonPath("$.[*].clubDistance").value(hasItem(DEFAULT_CLUB_DISTANCE)))
-            .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT)));
+            .andExpect(jsonPath("$.[*].clubDistance").value(hasItem(DEFAULT_CLUB_DISTANCE)));
     }
 
     @Test
@@ -147,9 +137,7 @@ class ClubStatsResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(clubStats.getId().intValue()))
-            .andExpect(jsonPath("$.bagId").value(DEFAULT_BAG_ID.intValue()))
-            .andExpect(jsonPath("$.clubDistance").value(DEFAULT_CLUB_DISTANCE))
-            .andExpect(jsonPath("$.comment").value(DEFAULT_COMMENT));
+            .andExpect(jsonPath("$.clubDistance").value(DEFAULT_CLUB_DISTANCE));
     }
 
     @Test
@@ -171,7 +159,7 @@ class ClubStatsResourceIT {
         ClubStats updatedClubStats = clubStatsRepository.findById(clubStats.getId()).get();
         // Disconnect from session so that the updates on updatedClubStats are not directly saved in db
         em.detach(updatedClubStats);
-        updatedClubStats.bagId(UPDATED_BAG_ID).clubDistance(UPDATED_CLUB_DISTANCE).comment(UPDATED_COMMENT);
+        updatedClubStats.clubDistance(UPDATED_CLUB_DISTANCE);
 
         restClubStatsMockMvc
             .perform(
@@ -185,9 +173,7 @@ class ClubStatsResourceIT {
         List<ClubStats> clubStatsList = clubStatsRepository.findAll();
         assertThat(clubStatsList).hasSize(databaseSizeBeforeUpdate);
         ClubStats testClubStats = clubStatsList.get(clubStatsList.size() - 1);
-        assertThat(testClubStats.getBagId()).isEqualTo(UPDATED_BAG_ID);
         assertThat(testClubStats.getClubDistance()).isEqualTo(UPDATED_CLUB_DISTANCE);
-        assertThat(testClubStats.getComment()).isEqualTo(UPDATED_COMMENT);
     }
 
     @Test
@@ -258,8 +244,6 @@ class ClubStatsResourceIT {
         ClubStats partialUpdatedClubStats = new ClubStats();
         partialUpdatedClubStats.setId(clubStats.getId());
 
-        partialUpdatedClubStats.clubDistance(UPDATED_CLUB_DISTANCE).comment(UPDATED_COMMENT);
-
         restClubStatsMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedClubStats.getId())
@@ -272,9 +256,7 @@ class ClubStatsResourceIT {
         List<ClubStats> clubStatsList = clubStatsRepository.findAll();
         assertThat(clubStatsList).hasSize(databaseSizeBeforeUpdate);
         ClubStats testClubStats = clubStatsList.get(clubStatsList.size() - 1);
-        assertThat(testClubStats.getBagId()).isEqualTo(DEFAULT_BAG_ID);
-        assertThat(testClubStats.getClubDistance()).isEqualTo(UPDATED_CLUB_DISTANCE);
-        assertThat(testClubStats.getComment()).isEqualTo(UPDATED_COMMENT);
+        assertThat(testClubStats.getClubDistance()).isEqualTo(DEFAULT_CLUB_DISTANCE);
     }
 
     @Test
@@ -289,7 +271,7 @@ class ClubStatsResourceIT {
         ClubStats partialUpdatedClubStats = new ClubStats();
         partialUpdatedClubStats.setId(clubStats.getId());
 
-        partialUpdatedClubStats.bagId(UPDATED_BAG_ID).clubDistance(UPDATED_CLUB_DISTANCE).comment(UPDATED_COMMENT);
+        partialUpdatedClubStats.clubDistance(UPDATED_CLUB_DISTANCE);
 
         restClubStatsMockMvc
             .perform(
@@ -303,9 +285,7 @@ class ClubStatsResourceIT {
         List<ClubStats> clubStatsList = clubStatsRepository.findAll();
         assertThat(clubStatsList).hasSize(databaseSizeBeforeUpdate);
         ClubStats testClubStats = clubStatsList.get(clubStatsList.size() - 1);
-        assertThat(testClubStats.getBagId()).isEqualTo(UPDATED_BAG_ID);
         assertThat(testClubStats.getClubDistance()).isEqualTo(UPDATED_CLUB_DISTANCE);
-        assertThat(testClubStats.getComment()).isEqualTo(UPDATED_COMMENT);
     }
 
     @Test

@@ -13,17 +13,5 @@
                                  constraintName="fk_golf_bag__user_id"
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
-
-        <addForeignKeyConstraint baseColumnNames="golf_bag_id"
-                                 baseTableName="rel_golf_bag__clubs"
-                                 constraintName="fk_rel_golf_bag__clubs__golf_bag_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="golf_bag"/>
-
-        <addForeignKeyConstraint baseColumnNames="clubs_id"
-                                 baseTableName="rel_golf_bag__clubs"
-                                 constraintName="fk_rel_golf_bag__clubs__clubs_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="clubs"/>
     </changeSet>
 </databaseChangeLog>

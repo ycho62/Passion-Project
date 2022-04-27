@@ -31,11 +31,15 @@ export const ClubsDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>{clubsEntity.id}</dd>
           <dt>
-            <span id="clubname">
-              <Translate contentKey="golfKeyApp.clubs.clubname">Clubname</Translate>
+            <span id="clubtype">
+              <Translate contentKey="golfKeyApp.clubs.clubtype">Clubtype</Translate>
             </span>
           </dt>
-          <dd>{clubsEntity.clubname}</dd>
+          <dd>{clubsEntity.clubtype}</dd>
+          <dt>
+            <Translate contentKey="golfKeyApp.clubs.golfBag">Golf Bag</Translate>
+          </dt>
+          <dd>{clubsEntity.golfBag ? clubsEntity.golfBag.name : ''}</dd>
           <dt>
             <Translate contentKey="golfKeyApp.clubs.clubStats">Club Stats</Translate>
           </dt>

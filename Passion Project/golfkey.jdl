@@ -1,53 +1,66 @@
 entity GolfBag{
-    BagId Long
-    UserName String
-
+    name String required maxlength(20)
+    
 }
 
 entity ClubStats{
-	BagId Long
-	ClubDistance String maxlength(20)
-    Comment String maxlength(128)
-}
-entity Clubs{
-	clubname ClubName
+	clubDistance String maxlength(20)
 }
 
-enum ClubName {
-   DRIVER,
-   SIXTYWEDGE,
-   FIFTYEIGHTWEDGE,
-   SANDWEDGE,
-   PWEDGE,
-   NINEIRON,
-   EIGHTIRON,
-   SEVENIRON,
-   SEVENHYBRID,
-   SEVENWOOD,
-   SIXIRON,
-   SIXHYBRID,
-   SIXWOOD,
-   FIVEIRON,
-   FIVEHYBRID,
-   FIVEWOOD,
-   FOURIRON,
-   FOURHYBRID,
-   FOURWOOD,
-   THREEIRON,
-   THREEHYBRID,
-   THREEWOOD
+entity Club{
+	clubtype ClubType
+}
+
+entity Comment {
+    date ZonedDateTime
+    text String
+}
+
+entity Attachment{
+    name String required minlength(3)
+    date ZonedDateTime
+    file Blob
+}
+
+enum ClubType {
+   DRIVER("Driver")
+   SIXTYWEDGE("60 Degree Wedge")
+   FIFTYEIGHTWEDGE("58 Degree Wedge")
+   SANDWEDGE("Sand Wedge")
+   PWEDGE("Pitching Wedge")
+   NINEIRON("9 Iron")
+   EIGHTIRON("9 Iron")
+   SEVENIRON("9 Iron")
+   SEVENHYBRID("7 Hybrid")
+   SEVENWOOD("7 Wood")
+   SIXIRON("9 Iron")
+   SIXHYBRID("7 Hybrid")
+   SIXWOOD("6 Wood")
+   FIVEIRON("9 Iron")
+   FIVEHYBRID("7 Hybrid")
+   FIVEWOOD("5 Wood")
+   FOURIRON("9 Iron")
+   THREEIRON("9 Iron")
+   THREEHYBRID("3 Hybrid")
+   THREEWOOD("3 Wood")
 }
 
 relationship OneToOne{
-	 GolfBag{user(login)} to User
+	 GolfBag{user} to User{GolfBag}
+     
 }
 
 relationship OneToMany{
-	ClubStats to Clubs{clubStats}
+    Club to Attachment
 }
 
-relationship ManyToMany{
-	GolfBag{clubs} to Clubs{golfBag(clubs)}
+relationship ManyToOne{
+    Club{golfBag} to GolfBag{club}
+    Comment{club} to Club{comment}
+    Club{clubStats} to ClubStats{clubStats}
 
 }
+
+service all with serviceImpl
+
 

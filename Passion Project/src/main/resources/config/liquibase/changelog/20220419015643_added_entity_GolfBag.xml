@@ -14,31 +14,14 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="bag_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
-            <column name="user_name" type="varchar(255)">
-                <constraints nullable="true" />
+            <column name="name" type="varchar(20)">
+                <constraints nullable="false" />
             </column>
             <column name="user_id" type="bigint">
                 <constraints nullable="true" unique="true" uniqueConstraintName="ux_golf_bag__user_id" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
-    </changeSet>
-
-    <changeSet id="20220419015643-1-relations" author="jhipster">
-
-        <createTable tableName="rel_golf_bag__clubs">
-            <column name="clubs_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="golf_bag_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addPrimaryKey columnNames="golf_bag_id, clubs_id" tableName="rel_golf_bag__clubs"/>
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
@@ -58,8 +41,7 @@
                   tableName="golf_bag"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
-            <column name="bag_id" type="numeric"/>
-            <column name="user_name" type="string"/>
+            <column name="name" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

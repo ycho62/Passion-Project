@@ -2,27 +2,20 @@ package com.golfkey.myapp.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.golfkey.myapp.IntegrationTest;
 import com.golfkey.myapp.domain.GolfBag;
 import com.golfkey.myapp.repository.GolfBagRepository;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -32,16 +25,12 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the {@link GolfBagResource} REST controller.
  */
 @IntegrationTest
-@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class GolfBagResourceIT {
 
-    private static final Long DEFAULT_BAG_ID = 1L;
-    private static final Long UPDATED_BAG_ID = 2L;
-
-    private static final String DEFAULT_USER_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_USER_NAME = "BBBBBBBBBB";
+    private static final String DEFAULT_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_NAME = "BBBBBBBBBB";
 
     private static final String ENTITY_API_URL = "/api/golf-bags";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -51,9 +40,6 @@ class GolfBagResourceIT {
 
     @Autowired
     private GolfBagRepository golfBagRepository;
-
-    @Mock
-    private GolfBagRepository golfBagRepositoryMock;
 
     @Autowired
     private EntityManager em;
@@ -70,7 +56,7 @@ class GolfBagResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static GolfBag createEntity(EntityManager em) {
-        GolfBag golfBag = new GolfBag().bagId(DEFAULT_BAG_ID).userName(DEFAULT_USER_NAME);
+        GolfBag golfBag = new GolfBag().name(DEFAULT_NAME);
         return golfBag;
     }
 
@@ -81,7 +67,7 @@ class GolfBagResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static GolfBag createUpdatedEntity(EntityManager em) {
-        GolfBag golfBag = new GolfBag().bagId(UPDATED_BAG_ID).userName(UPDATED_USER_NAME);
+        GolfBag golfBag = new GolfBag().name(UPDATED_NAME);
         return golfBag;
     }
 
@@ -103,8 +89,7 @@ class GolfBagResourceIT {
         List<GolfBag> golfBagList = golfBagRepository.findAll();
         assertThat(golfBagList).hasSize(databaseSizeBeforeCreate + 1);
         GolfBag testGolfBag = golfBagList.get(golfBagList.size() - 1);
-        assertThat(testGolfBag.getBagId()).isEqualTo(DEFAULT_BAG_ID);
-        assertThat(testGolfBag.getUserName()).isEqualTo(DEFAULT_USER_NAME);
+        assertThat(testGolfBag.getName()).isEqualTo(DEFAULT_NAME);
     }
 
     @Test
@@ -127,6 +112,23 @@ class GolfBagResourceIT {
 
     @Test
     @Transactional
+    void checkNameIsRequired() throws Exception {
+        int databaseSizeBeforeTest = golfBagRepository.findAll().size();
+        // set the field null
+        golfBag.setName(null);
+
+        // Create the GolfBag, which fails.
+
+        restGolfBagMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(golfBag)))
+            .andExpect(status().isBadRequest());
+
+        List<GolfBag> golfBagList = golfBagRepository.findAll();
+        assertThat(golfBagList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllGolfBags() throws Exception {
         // Initialize the database
         golfBagRepository.saveAndFlush(golfBag);
@@ -137,26 +139,7 @@ class GolfBagResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(golfBag.getId().intValue())))
-            .andExpect(jsonPath("$.[*].bagId").value(hasItem(DEFAULT_BAG_ID.intValue())))
-            .andExpect(jsonPath("$.[*].userName").value(hasItem(DEFAULT_USER_NAME)));
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    void getAllGolfBagsWithEagerRelationshipsIsEnabled() throws Exception {
-        when(golfBagRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        restGolfBagMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(golfBagRepositoryMock, times(1)).findAllWithEagerRelationships(any());
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    void getAllGolfBagsWithEagerRelationshipsIsNotEnabled() throws Exception {
-        when(golfBagRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        restGolfBagMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(golfBagRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
     }
 
     @Test
@@ -171,8 +154,7 @@ class GolfBagResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(golfBag.getId().intValue()))
-            .andExpect(jsonPath("$.bagId").value(DEFAULT_BAG_ID.intValue()))
-            .andExpect(jsonPath("$.userName").value(DEFAULT_USER_NAME));
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME));
     }
 
     @Test
@@ -194,7 +176,7 @@ class GolfBagResourceIT {
         GolfBag updatedGolfBag = golfBagRepository.findById(golfBag.getId()).get();
         // Disconnect from session so that the updates on updatedGolfBag are not directly saved in db
         em.detach(updatedGolfBag);
-        updatedGolfBag.bagId(UPDATED_BAG_ID).userName(UPDATED_USER_NAME);
+        updatedGolfBag.name(UPDATED_NAME);
 
         restGolfBagMockMvc
             .perform(
@@ -208,8 +190,7 @@ class GolfBagResourceIT {
         List<GolfBag> golfBagList = golfBagRepository.findAll();
         assertThat(golfBagList).hasSize(databaseSizeBeforeUpdate);
         GolfBag testGolfBag = golfBagList.get(golfBagList.size() - 1);
-        assertThat(testGolfBag.getBagId()).isEqualTo(UPDATED_BAG_ID);
-        assertThat(testGolfBag.getUserName()).isEqualTo(UPDATED_USER_NAME);
+        assertThat(testGolfBag.getName()).isEqualTo(UPDATED_NAME);
     }
 
     @Test
@@ -280,7 +261,7 @@ class GolfBagResourceIT {
         GolfBag partialUpdatedGolfBag = new GolfBag();
         partialUpdatedGolfBag.setId(golfBag.getId());
 
-        partialUpdatedGolfBag.bagId(UPDATED_BAG_ID).userName(UPDATED_USER_NAME);
+        partialUpdatedGolfBag.name(UPDATED_NAME);
 
         restGolfBagMockMvc
             .perform(
@@ -294,8 +275,7 @@ class GolfBagResourceIT {
         List<GolfBag> golfBagList = golfBagRepository.findAll();
         assertThat(golfBagList).hasSize(databaseSizeBeforeUpdate);
         GolfBag testGolfBag = golfBagList.get(golfBagList.size() - 1);
-        assertThat(testGolfBag.getBagId()).isEqualTo(UPDATED_BAG_ID);
-        assertThat(testGolfBag.getUserName()).isEqualTo(UPDATED_USER_NAME);
+        assertThat(testGolfBag.getName()).isEqualTo(UPDATED_NAME);
     }
 
     @Test
@@ -310,7 +290,7 @@ class GolfBagResourceIT {
         GolfBag partialUpdatedGolfBag = new GolfBag();
         partialUpdatedGolfBag.setId(golfBag.getId());
 
-        partialUpdatedGolfBag.bagId(UPDATED_BAG_ID).userName(UPDATED_USER_NAME);
+        partialUpdatedGolfBag.name(UPDATED_NAME);
 
         restGolfBagMockMvc
             .perform(
@@ -324,8 +304,7 @@ class GolfBagResourceIT {
         List<GolfBag> golfBagList = golfBagRepository.findAll();
         assertThat(golfBagList).hasSize(databaseSizeBeforeUpdate);
         GolfBag testGolfBag = golfBagList.get(golfBagList.size() - 1);
-        assertThat(testGolfBag.getBagId()).isEqualTo(UPDATED_BAG_ID);
-        assertThat(testGolfBag.getUserName()).isEqualTo(UPDATED_USER_NAME);
+        assertThat(testGolfBag.getName()).isEqualTo(UPDATED_NAME);
     }
 
     @Test

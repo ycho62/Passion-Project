@@ -6,9 +6,9 @@
   "entityTableName": "clubs",
   "fields": [
     {
-      "fieldName": "clubname",
-      "fieldType": "ClubName",
-      "fieldValues": "DRIVER,SIXTYWEDGE,FIFTYEIGHTWEDGE,SANDWEDGE,PWEDGE,NINEIRON,EIGHTIRON,SEVENIRON,SEVENHYBRID,SEVENWOOD,SIXIRON,SIXHYBRID,SIXWOOD,FIVEIRON,FIVEHYBRID,FIVEWOOD,FOURIRON,FOURHYBRID,FOURWOOD,THREEIRON,THREEHYBRID,THREEWOOD"
+      "fieldName": "clubtype",
+      "fieldType": "ClubType",
+      "fieldValues": "DRIVER (Driver),SIXTYWEDGE (60 Degree Wedge),FIFTYEIGHTWEDGE (58 Degree Wedge),SANDWEDGE (Sand Wedge),PWEDGE (Pitching Wedge),NINEIRON (9 Iron),EIGHTIRON (9 Iron),SEVENIRON (9 Iron),SEVENHYBRID (7 Hybrid),SEVENWOOD (7 Wood),SIXIRON (9 Iron),SIXHYBRID (7 Hybrid),SIXWOOD (6 Wood),FIVEIRON (9 Iron),FIVEHYBRID (7 Hybrid),FIVEWOOD (5 Wood),FOURIRON (9 Iron),THREEIRON (9 Iron),THREEHYBRID (3 Hybrid),THREEWOOD (3 Wood)"
     }
   ],
   "fluentMethods": true,
@@ -18,18 +18,23 @@
   "readOnly": false,
   "relationships": [
     {
+      "otherEntityName": "attachment",
+      "otherEntityRelationshipName": "clubs",
+      "relationshipName": "attachment",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "name",
+      "otherEntityName": "golfBag",
+      "otherEntityRelationshipName": "clubs",
+      "relationshipName": "golfBag",
+      "relationshipType": "many-to-one"
+    },
+    {
       "otherEntityName": "clubStats",
       "otherEntityRelationshipName": "clubs",
       "relationshipName": "clubStats",
       "relationshipType": "many-to-one"
-    },
-    {
-      "otherEntityField": "clubs",
-      "otherEntityName": "golfBag",
-      "otherEntityRelationshipName": "clubs",
-      "ownerSide": false,
-      "relationshipName": "golfBag",
-      "relationshipType": "many-to-many"
     }
   ],
   "service": "no"

@@ -1,0 +1,38 @@
+{
+  "applications": "*",
+  "changelogDate": "20220424031350",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "attachment",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength"],
+      "fieldValidateRulesMinlength": "3"
+    },
+    {
+      "fieldName": "date",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "file",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Attachment",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "clubs",
+      "otherEntityRelationshipName": "attachment",
+      "relationshipName": "clubs",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

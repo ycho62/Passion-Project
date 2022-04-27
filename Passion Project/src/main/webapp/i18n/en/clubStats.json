@@ -18,10 +18,7 @@
         "title": "Club Stats"
       },
       "id": "ID",
-      "bagId": "Bag Id",
-      "clubDistance": "Club Distance",
-      "comment": "Comment",
-      "clubs": "Clubs"
+      "clubDistance": "Club Distance"
     }
   }
 }

@@ -2,21 +2,28 @@ package com.golfkey.myapp.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.golfkey.myapp.IntegrationTest;
 import com.golfkey.myapp.domain.Clubs;
-import com.golfkey.myapp.domain.enumeration.ClubName;
+import com.golfkey.myapp.domain.enumeration.ClubType;
 import com.golfkey.myapp.repository.ClubsRepository;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -26,12 +33,13 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the {@link ClubsResource} REST controller.
  */
 @IntegrationTest
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class ClubsResourceIT {
 
-    private static final ClubName DEFAULT_CLUBNAME = ClubName.DRIVER;
-    private static final ClubName UPDATED_CLUBNAME = ClubName.SIXTYWEDGE;
+    private static final ClubType DEFAULT_CLUBTYPE = ClubType.DRIVER;
+    private static final ClubType UPDATED_CLUBTYPE = ClubType.SIXTYWEDGE;
 
     private static final String ENTITY_API_URL = "/api/clubs";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -41,6 +49,9 @@ class ClubsResourceIT {
 
     @Autowired
     private ClubsRepository clubsRepository;
+
+    @Mock
+    private ClubsRepository clubsRepositoryMock;
 
     @Autowired
     private EntityManager em;
@@ -57,7 +68,7 @@ class ClubsResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Clubs createEntity(EntityManager em) {
-        Clubs clubs = new Clubs().clubname(DEFAULT_CLUBNAME);
+        Clubs clubs = new Clubs().clubtype(DEFAULT_CLUBTYPE);
         return clubs;
     }
 
@@ -68,7 +79,7 @@ class ClubsResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Clubs createUpdatedEntity(EntityManager em) {
-        Clubs clubs = new Clubs().clubname(UPDATED_CLUBNAME);
+        Clubs clubs = new Clubs().clubtype(UPDATED_CLUBTYPE);
         return clubs;
     }
 
@@ -90,7 +101,7 @@ class ClubsResourceIT {
         List<Clubs> clubsList = clubsRepository.findAll();
         assertThat(clubsList).hasSize(databaseSizeBeforeCreate + 1);
         Clubs testClubs = clubsList.get(clubsList.size() - 1);
-        assertThat(testClubs.getClubname()).isEqualTo(DEFAULT_CLUBNAME);
+        assertThat(testClubs.getClubtype()).isEqualTo(DEFAULT_CLUBTYPE);
     }
 
     @Test
@@ -123,7 +134,25 @@ class ClubsResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(clubs.getId().intValue())))
-            .andExpect(jsonPath("$.[*].clubname").value(hasItem(DEFAULT_CLUBNAME.toString())));
+            .andExpect(jsonPath("$.[*].clubtype").value(hasItem(DEFAULT_CLUBTYPE.toString())));
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllClubsWithEagerRelationshipsIsEnabled() throws Exception {
+        when(clubsRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restClubsMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(clubsRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllClubsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(clubsRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restClubsMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(clubsRepositoryMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @Test
@@ -138,7 +167,7 @@ class ClubsResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(clubs.getId().intValue()))
-            .andExpect(jsonPath("$.clubname").value(DEFAULT_CLUBNAME.toString()));
+            .andExpect(jsonPath("$.clubtype").value(DEFAULT_CLUBTYPE.toString()));
     }
 
     @Test
@@ -160,7 +189,7 @@ class ClubsResourceIT {
         Clubs updatedClubs = clubsRepository.findById(clubs.getId()).get();
         // Disconnect from session so that the updates on updatedClubs are not directly saved in db
         em.detach(updatedClubs);
-        updatedClubs.clubname(UPDATED_CLUBNAME);
+        updatedClubs.clubtype(UPDATED_CLUBTYPE);
 
         restClubsMockMvc
             .perform(
@@ -174,7 +203,7 @@ class ClubsResourceIT {
         List<Clubs> clubsList = clubsRepository.findAll();
         assertThat(clubsList).hasSize(databaseSizeBeforeUpdate);
         Clubs testClubs = clubsList.get(clubsList.size() - 1);
-        assertThat(testClubs.getClubname()).isEqualTo(UPDATED_CLUBNAME);
+        assertThat(testClubs.getClubtype()).isEqualTo(UPDATED_CLUBTYPE);
     }
 
     @Test
@@ -257,7 +286,7 @@ class ClubsResourceIT {
         List<Clubs> clubsList = clubsRepository.findAll();
         assertThat(clubsList).hasSize(databaseSizeBeforeUpdate);
         Clubs testClubs = clubsList.get(clubsList.size() - 1);
-        assertThat(testClubs.getClubname()).isEqualTo(DEFAULT_CLUBNAME);
+        assertThat(testClubs.getClubtype()).isEqualTo(DEFAULT_CLUBTYPE);
     }
 
     @Test
@@ -272,7 +301,7 @@ class ClubsResourceIT {
         Clubs partialUpdatedClubs = new Clubs();
         partialUpdatedClubs.setId(clubs.getId());
 
-        partialUpdatedClubs.clubname(UPDATED_CLUBNAME);
+        partialUpdatedClubs.clubtype(UPDATED_CLUBTYPE);
 
         restClubsMockMvc
             .perform(
@@ -286,7 +315,7 @@ class ClubsResourceIT {
         List<Clubs> clubsList = clubsRepository.findAll();
         assertThat(clubsList).hasSize(databaseSizeBeforeUpdate);
         Clubs testClubs = clubsList.get(clubsList.size() - 1);
-        assertThat(testClubs.getClubname()).isEqualTo(UPDATED_CLUBNAME);
+        assertThat(testClubs.getClubtype()).isEqualTo(UPDATED_CLUBTYPE);
     }
 
     @Test

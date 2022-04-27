@@ -8,6 +8,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,7 +48,7 @@ public class GolfBagResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/golf-bags")
-    public ResponseEntity<GolfBag> createGolfBag(@RequestBody GolfBag golfBag) throws URISyntaxException {
+    public ResponseEntity<GolfBag> createGolfBag(@Valid @RequestBody GolfBag golfBag) throws URISyntaxException {
         log.debug("REST request to save GolfBag : {}", golfBag);
         if (golfBag.getId() != null) {
             throw new BadRequestAlertException("A new golfBag cannot already have an ID", ENTITY_NAME, "idexists");
@@ -69,8 +71,10 @@ public class GolfBagResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/golf-bags/{id}")
-    public ResponseEntity<GolfBag> updateGolfBag(@PathVariable(value = "id", required = false) final Long id, @RequestBody GolfBag golfBag)
-        throws URISyntaxException {
+    public ResponseEntity<GolfBag> updateGolfBag(
+        @PathVariable(value = "id", required = false) final Long id,
+        @Valid @RequestBody GolfBag golfBag
+    ) throws URISyntaxException {
         log.debug("REST request to update GolfBag : {}, {}", id, golfBag);
         if (golfBag.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -104,7 +108,7 @@ public class GolfBagResource {
     @PatchMapping(value = "/golf-bags/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<GolfBag> partialUpdateGolfBag(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody GolfBag golfBag
+        @NotNull @RequestBody GolfBag golfBag
     ) throws URISyntaxException {
         log.debug("REST request to partial update GolfBag partially : {}, {}", id, golfBag);
         if (golfBag.getId() == null) {
@@ -121,11 +125,8 @@ public class GolfBagResource {
         Optional<GolfBag> result = golfBagRepository
             .findById(golfBag.getId())
             .map(existingGolfBag -> {
-                if (golfBag.getBagId() != null) {
-                    existingGolfBag.setBagId(golfBag.getBagId());
-                }
-                if (golfBag.getUserName() != null) {
-                    existingGolfBag.setUserName(golfBag.getUserName());
+                if (golfBag.getName() != null) {
+                    existingGolfBag.setName(golfBag.getName());
                 }
 
                 return existingGolfBag;
@@ -141,13 +142,12 @@ public class GolfBagResource {
     /**
      * {@code GET  /golf-bags} : get all the golfBags.
      *
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of golfBags in body.
      */
     @GetMapping("/golf-bags")
-    public List<GolfBag> getAllGolfBags(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public List<GolfBag> getAllGolfBags() {
         log.debug("REST request to get all GolfBags");
-        return golfBagRepository.findAllWithEagerRelationships();
+        return golfBagRepository.findAll();
     }
 
     /**
@@ -159,7 +159,7 @@ public class GolfBagResource {
     @GetMapping("/golf-bags/{id}")
     public ResponseEntity<GolfBag> getGolfBag(@PathVariable Long id) {
         log.debug("REST request to get GolfBag : {}", id);
-        Optional<GolfBag> golfBag = golfBagRepository.findOneWithEagerRelationships(id);
+        Optional<GolfBag> golfBag = golfBagRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(golfBag);
     }
 

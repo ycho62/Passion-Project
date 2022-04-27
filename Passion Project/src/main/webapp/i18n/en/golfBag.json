@@ -18,10 +18,8 @@
         "title": "Golf Bag"
       },
       "id": "ID",
-      "bagId": "Bag Id",
-      "userName": "User Name",
-      "user": "User",
-      "clubs": "Clubs"
+      "name": "Name",
+      "user": "User"
     }
   }
 }

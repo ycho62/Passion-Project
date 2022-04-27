@@ -51,16 +51,10 @@ export const GolfBag = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="golfKeyApp.golfBag.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="golfKeyApp.golfBag.bagId">Bag Id</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="golfKeyApp.golfBag.userName">User Name</Translate>
+                  <Translate contentKey="golfKeyApp.golfBag.name">Name</Translate>
                 </th>
                 <th>
                   <Translate contentKey="golfKeyApp.golfBag.user">User</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="golfKeyApp.golfBag.clubs">Clubs</Translate>
                 </th>
                 <th />
               </tr>
@@ -73,19 +67,8 @@ export const GolfBag = (props: RouteComponentProps<{ url: string }>) => {
                       {golfBag.id}
                     </Button>
                   </td>
-                  <td>{golfBag.bagId}</td>
-                  <td>{golfBag.userName}</td>
-                  <td>{golfBag.user ? golfBag.user.login : ''}</td>
-                  <td>
-                    {golfBag.clubs
-                      ? golfBag.clubs.map((val, j) => (
-                          <span key={j}>
-                            <Link to={`/clubs/${val.id}`}>{val.id}</Link>
-                            {j === golfBag.clubs.length - 1 ? '' : ', '}
-                          </span>
-                        ))
-                      : null}
-                  </td>
+                  <td>{golfBag.name}</td>
+                  <td>{golfBag.user ? golfBag.user.id : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/golf-bag/${golfBag.id}`} color="info" size="sm" data-cy="entityDetailsButton">

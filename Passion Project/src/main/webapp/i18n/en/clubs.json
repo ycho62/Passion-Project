@@ -18,9 +18,10 @@
         "title": "Clubs"
       },
       "id": "ID",
-      "clubname": "Clubname",
-      "clubStats": "Club Stats",
-      "golfBag": "Golf Bag"
+      "clubtype": "Clubtype",
+      "attachment": "Attachment",
+      "golfBag": "Golf Bag",
+      "clubStats": "Club Stats"
     }
   }
 }

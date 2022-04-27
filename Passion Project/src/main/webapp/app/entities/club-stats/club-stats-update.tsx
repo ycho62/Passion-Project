@@ -84,13 +84,6 @@ export const ClubStatsUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 />
               ) : null}
               <ValidatedField
-                label={translate('golfKeyApp.clubStats.bagId')}
-                id="club-stats-bagId"
-                name="bagId"
-                data-cy="bagId"
-                type="text"
-              />
-              <ValidatedField
                 label={translate('golfKeyApp.clubStats.clubDistance')}
                 id="club-stats-clubDistance"
                 name="clubDistance"
@@ -98,16 +91,6 @@ export const ClubStatsUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 type="text"
                 validate={{
                   maxLength: { value: 20, message: translate('entity.validation.maxlength', { max: 20 }) },
-                }}
-              />
-              <ValidatedField
-                label={translate('golfKeyApp.clubStats.comment')}
-                id="club-stats-comment"
-                name="comment"
-                data-cy="comment"
-                type="text"
-                validate={{
-                  maxLength: { value: 128, message: translate('entity.validation.maxlength', { max: 128 }) },
                 }}
               />
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/club-stats" replace color="info">

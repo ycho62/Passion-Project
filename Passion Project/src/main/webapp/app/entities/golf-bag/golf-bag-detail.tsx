@@ -31,34 +31,15 @@ export const GolfBagDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>{golfBagEntity.id}</dd>
           <dt>
-            <span id="bagId">
-              <Translate contentKey="golfKeyApp.golfBag.bagId">Bag Id</Translate>
+            <span id="name">
+              <Translate contentKey="golfKeyApp.golfBag.name">Name</Translate>
             </span>
           </dt>
-          <dd>{golfBagEntity.bagId}</dd>
-          <dt>
-            <span id="userName">
-              <Translate contentKey="golfKeyApp.golfBag.userName">User Name</Translate>
-            </span>
-          </dt>
-          <dd>{golfBagEntity.userName}</dd>
+          <dd>{golfBagEntity.name}</dd>
           <dt>
             <Translate contentKey="golfKeyApp.golfBag.user">User</Translate>
           </dt>
-          <dd>{golfBagEntity.user ? golfBagEntity.user.login : ''}</dd>
-          <dt>
-            <Translate contentKey="golfKeyApp.golfBag.clubs">Clubs</Translate>
-          </dt>
-          <dd>
-            {golfBagEntity.clubs
-              ? golfBagEntity.clubs.map((val, i) => (
-                  <span key={val.id}>
-                    <a>{val.id}</a>
-                    {golfBagEntity.clubs && i === golfBagEntity.clubs.length - 1 ? '' : ', '}
-                  </span>
-                ))
-              : null}
-          </dd>
+          <dd>{golfBagEntity.user ? golfBagEntity.user.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/golf-bag" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

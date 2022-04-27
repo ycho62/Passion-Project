@@ -28,7 +28,6 @@ export const Clubs = (props: RouteComponentProps<{ url: string }>) => {
 
   return (
     <div>
-      <h1>Your Clubs</h1>
       <h2 id="clubs-heading" data-cy="ClubsHeading">
         <Translate contentKey="golfKeyApp.clubs.home.title">Clubs</Translate>
         <div className="d-flex justify-content-end">
@@ -52,7 +51,10 @@ export const Clubs = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="golfKeyApp.clubs.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="golfKeyApp.clubs.clubname">Clubname</Translate>
+                  <Translate contentKey="golfKeyApp.clubs.clubtype">Clubtype</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="golfKeyApp.clubs.golfBag">Golf Bag</Translate>
                 </th>
                 <th>
                   <Translate contentKey="golfKeyApp.clubs.clubStats">Club Stats</Translate>
@@ -69,8 +71,9 @@ export const Clubs = (props: RouteComponentProps<{ url: string }>) => {
                     </Button>
                   </td>
                   <td>
-                    <Translate contentKey={`golfKeyApp.ClubName.${clubs.clubname}`} />
+                    <Translate contentKey={`golfKeyApp.ClubType.${clubs.clubtype}`} />
                   </td>
+                  <td>{clubs.golfBag ? <Link to={`/golf-bag/${clubs.golfBag.id}`}>{clubs.golfBag.name}</Link> : ''}</td>
                   <td>{clubs.clubStats ? <Link to={`/club-stats/${clubs.clubStats.id}`}>{clubs.clubStats.id}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">

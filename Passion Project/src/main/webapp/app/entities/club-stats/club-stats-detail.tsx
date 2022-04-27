@@ -31,23 +31,11 @@ export const ClubStatsDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>{clubStatsEntity.id}</dd>
           <dt>
-            <span id="bagId">
-              <Translate contentKey="golfKeyApp.clubStats.bagId">Bag Id</Translate>
-            </span>
-          </dt>
-          <dd>{clubStatsEntity.bagId}</dd>
-          <dt>
             <span id="clubDistance">
               <Translate contentKey="golfKeyApp.clubStats.clubDistance">Club Distance</Translate>
             </span>
           </dt>
           <dd>{clubStatsEntity.clubDistance}</dd>
-          <dt>
-            <span id="comment">
-              <Translate contentKey="golfKeyApp.clubStats.comment">Comment</Translate>
-            </span>
-          </dt>
-          <dd>{clubStatsEntity.comment}</dd>
         </dl>
         <Button tag={Link} to="/club-stats" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

@@ -125,14 +125,8 @@ public class ClubStatsResource {
         Optional<ClubStats> result = clubStatsRepository
             .findById(clubStats.getId())
             .map(existingClubStats -> {
-                if (clubStats.getBagId() != null) {
-                    existingClubStats.setBagId(clubStats.getBagId());
-                }
                 if (clubStats.getClubDistance() != null) {
                     existingClubStats.setClubDistance(clubStats.getClubDistance());
-                }
-                if (clubStats.getComment() != null) {
-                    existingClubStats.setComment(clubStats.getComment());
                 }
 
                 return existingClubStats;

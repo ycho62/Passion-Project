@@ -10,6 +10,8 @@
         "golfBag": "Golf Bag",
         "clubStats": "Club Stats",
         "clubs": "Clubs",
+        "comment": "Comment",
+        "attachment": "Attachment",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

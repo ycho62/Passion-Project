@@ -1,0 +1,32 @@
+{
+  "applications": "*",
+  "changelogDate": "20220424031349",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "comment",
+  "fields": [
+    {
+      "fieldName": "date",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "text",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Comment",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "commentId",
+      "otherEntityName": "clubs",
+      "otherEntityRelationshipName": "comment",
+      "relationshipName": "clubs",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}
