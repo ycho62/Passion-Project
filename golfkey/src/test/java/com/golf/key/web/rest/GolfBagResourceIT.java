@@ -8,7 +8,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.golf.key.IntegrationTest;
 import com.golf.key.domain.GolfBag;
-import com.golf.key.domain.enumeration.ClubTypes;
 import com.golf.key.repository.GolfBagRepository;
 import com.golf.key.service.GolfBagService;
 import java.util.ArrayList;
@@ -42,9 +41,6 @@ class GolfBagResourceIT {
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
-    private static final ClubTypes DEFAULT_CLUBS = ClubTypes.DRIVER;
-    private static final ClubTypes UPDATED_CLUBS = ClubTypes.SIXTYWEDGE;
-
     private static final String ENTITY_API_URL = "/api/golf-bags";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -75,7 +71,7 @@ class GolfBagResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static GolfBag createEntity(EntityManager em) {
-        GolfBag golfBag = new GolfBag().name(DEFAULT_NAME).clubs(DEFAULT_CLUBS);
+        GolfBag golfBag = new GolfBag().name(DEFAULT_NAME);
         return golfBag;
     }
 
@@ -86,7 +82,7 @@ class GolfBagResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static GolfBag createUpdatedEntity(EntityManager em) {
-        GolfBag golfBag = new GolfBag().name(UPDATED_NAME).clubs(UPDATED_CLUBS);
+        GolfBag golfBag = new GolfBag().name(UPDATED_NAME);
         return golfBag;
     }
 
@@ -109,7 +105,6 @@ class GolfBagResourceIT {
         assertThat(golfBagList).hasSize(databaseSizeBeforeCreate + 1);
         GolfBag testGolfBag = golfBagList.get(golfBagList.size() - 1);
         assertThat(testGolfBag.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testGolfBag.getClubs()).isEqualTo(DEFAULT_CLUBS);
     }
 
     @Test
@@ -159,8 +154,7 @@ class GolfBagResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(golfBag.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
-            .andExpect(jsonPath("$.[*].clubs").value(hasItem(DEFAULT_CLUBS.toString())));
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -193,8 +187,7 @@ class GolfBagResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(golfBag.getId().intValue()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
-            .andExpect(jsonPath("$.clubs").value(DEFAULT_CLUBS.toString()));
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME));
     }
 
     @Test
@@ -216,7 +209,7 @@ class GolfBagResourceIT {
         GolfBag updatedGolfBag = golfBagRepository.findById(golfBag.getId()).get();
         // Disconnect from session so that the updates on updatedGolfBag are not directly saved in db
         em.detach(updatedGolfBag);
-        updatedGolfBag.name(UPDATED_NAME).clubs(UPDATED_CLUBS);
+        updatedGolfBag.name(UPDATED_NAME);
 
         restGolfBagMockMvc
             .perform(
@@ -231,7 +224,6 @@ class GolfBagResourceIT {
         assertThat(golfBagList).hasSize(databaseSizeBeforeUpdate);
         GolfBag testGolfBag = golfBagList.get(golfBagList.size() - 1);
         assertThat(testGolfBag.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testGolfBag.getClubs()).isEqualTo(UPDATED_CLUBS);
     }
 
     @Test
@@ -302,7 +294,7 @@ class GolfBagResourceIT {
         GolfBag partialUpdatedGolfBag = new GolfBag();
         partialUpdatedGolfBag.setId(golfBag.getId());
 
-        partialUpdatedGolfBag.name(UPDATED_NAME).clubs(UPDATED_CLUBS);
+        partialUpdatedGolfBag.name(UPDATED_NAME);
 
         restGolfBagMockMvc
             .perform(
@@ -317,7 +309,6 @@ class GolfBagResourceIT {
         assertThat(golfBagList).hasSize(databaseSizeBeforeUpdate);
         GolfBag testGolfBag = golfBagList.get(golfBagList.size() - 1);
         assertThat(testGolfBag.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testGolfBag.getClubs()).isEqualTo(UPDATED_CLUBS);
     }
 
     @Test
@@ -332,7 +323,7 @@ class GolfBagResourceIT {
         GolfBag partialUpdatedGolfBag = new GolfBag();
         partialUpdatedGolfBag.setId(golfBag.getId());
 
-        partialUpdatedGolfBag.name(UPDATED_NAME).clubs(UPDATED_CLUBS);
+        partialUpdatedGolfBag.name(UPDATED_NAME);
 
         restGolfBagMockMvc
             .perform(
@@ -347,7 +338,6 @@ class GolfBagResourceIT {
         assertThat(golfBagList).hasSize(databaseSizeBeforeUpdate);
         GolfBag testGolfBag = golfBagList.get(golfBagList.size() - 1);
         assertThat(testGolfBag.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testGolfBag.getClubs()).isEqualTo(UPDATED_CLUBS);
     }
 
     @Test

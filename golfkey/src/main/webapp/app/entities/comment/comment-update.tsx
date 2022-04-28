@@ -8,8 +8,8 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { IGolfBag } from 'app/shared/model/golf-bag.model';
-import { getEntities as getGolfBags } from 'app/entities/golf-bag/golf-bag.reducer';
+import { IClub } from 'app/shared/model/club.model';
+import { getEntities as getClubs } from 'app/entities/club/club.reducer';
 import { IComment } from 'app/shared/model/comment.model';
 import { getEntity, updateEntity, createEntity, reset } from './comment.reducer';
 
@@ -18,7 +18,7 @@ export const CommentUpdate = (props: RouteComponentProps<{ id: string }>) => {
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const golfBags = useAppSelector(state => state.golfBag.entities);
+  const clubs = useAppSelector(state => state.club.entities);
   const commentEntity = useAppSelector(state => state.comment.entity);
   const loading = useAppSelector(state => state.comment.loading);
   const updating = useAppSelector(state => state.comment.updating);
@@ -34,7 +34,7 @@ export const CommentUpdate = (props: RouteComponentProps<{ id: string }>) => {
       dispatch(getEntity(props.match.params.id));
     }
 
-    dispatch(getGolfBags({}));
+    dispatch(getClubs({}));
   }, []);
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export const CommentUpdate = (props: RouteComponentProps<{ id: string }>) => {
     const entity = {
       ...commentEntity,
       ...values,
-      golfBag: golfBags.find(it => it.id.toString() === values.golfBag.toString()),
+      club: clubs.find(it => it.id.toString() === values.club.toString()),
     };
 
     if (isNew) {
@@ -67,14 +67,14 @@ export const CommentUpdate = (props: RouteComponentProps<{ id: string }>) => {
       : {
           ...commentEntity,
           date: convertDateTimeFromServer(commentEntity.date),
-          golfBag: commentEntity?.golfBag?.id,
+          club: commentEntity?.club?.id,
         };
 
   return (
     <div>
       <Row className="justify-content-center">
         <Col md="8">
-          <h2 id="golfkeyApp.comment.home.createOrEditLabel" data-cy="CommentCreateUpdateHeading">
+          <h2 id="golfKeyApp.comment.home.createOrEditLabel" data-cy="CommentCreateUpdateHeading">
             Create or edit a Comment
           </h2>
         </Col>
@@ -95,12 +95,12 @@ export const CommentUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 placeholder="YYYY-MM-DD HH:mm"
               />
               <ValidatedField label="Text" id="comment-text" name="text" data-cy="text" type="text" />
-              <ValidatedField id="comment-golfBag" name="golfBag" data-cy="golfBag" label="Golf Bag" type="select">
+              <ValidatedField id="comment-club" name="club" data-cy="club" label="Club" type="select">
                 <option value="" key="0" />
-                {golfBags
-                  ? golfBags.map(otherEntity => (
+                {clubs
+                  ? clubs.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.clubTypes}
+                        {otherEntity.clubType}
                       </option>
                     ))
                   : null}

@@ -8,8 +8,8 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { IGolfBag } from 'app/shared/model/golf-bag.model';
-import { getEntities as getGolfBags } from 'app/entities/golf-bag/golf-bag.reducer';
+import { IClub } from 'app/shared/model/club.model';
+import { getEntities as getClubs } from 'app/entities/club/club.reducer';
 import { IAttachment } from 'app/shared/model/attachment.model';
 import { getEntity, updateEntity, createEntity, reset } from './attachment.reducer';
 
@@ -18,7 +18,7 @@ export const AttachmentUpdate = (props: RouteComponentProps<{ id: string }>) => 
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const golfBags = useAppSelector(state => state.golfBag.entities);
+  const clubs = useAppSelector(state => state.club.entities);
   const attachmentEntity = useAppSelector(state => state.attachment.entity);
   const loading = useAppSelector(state => state.attachment.loading);
   const updating = useAppSelector(state => state.attachment.updating);
@@ -34,7 +34,7 @@ export const AttachmentUpdate = (props: RouteComponentProps<{ id: string }>) => 
       dispatch(getEntity(props.match.params.id));
     }
 
-    dispatch(getGolfBags({}));
+    dispatch(getClubs({}));
   }, []);
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export const AttachmentUpdate = (props: RouteComponentProps<{ id: string }>) => 
     const entity = {
       ...attachmentEntity,
       ...values,
-      golfBag: golfBags.find(it => it.id.toString() === values.golfBag.toString()),
+      club: clubs.find(it => it.id.toString() === values.club.toString()),
     };
 
     if (isNew) {
@@ -67,14 +67,14 @@ export const AttachmentUpdate = (props: RouteComponentProps<{ id: string }>) => 
       : {
           ...attachmentEntity,
           date: convertDateTimeFromServer(attachmentEntity.date),
-          golfBag: attachmentEntity?.golfBag?.id,
+          club: attachmentEntity?.club?.id,
         };
 
   return (
     <div>
       <Row className="justify-content-center">
         <Col md="8">
-          <h2 id="golfkeyApp.attachment.home.createOrEditLabel" data-cy="AttachmentCreateUpdateHeading">
+          <h2 id="golfKeyApp.attachment.home.createOrEditLabel" data-cy="AttachmentCreateUpdateHeading">
             Create or edit a Attachment
           </h2>
         </Col>
@@ -106,12 +106,12 @@ export const AttachmentUpdate = (props: RouteComponentProps<{ id: string }>) => 
                 placeholder="YYYY-MM-DD HH:mm"
               />
               <ValidatedBlobField label="File" id="attachment-file" name="file" data-cy="file" openActionLabel="Open" />
-              <ValidatedField id="attachment-golfBag" name="golfBag" data-cy="golfBag" label="Golf Bag" type="select">
+              <ValidatedField id="attachment-club" name="club" data-cy="club" label="Club" type="select">
                 <option value="" key="0" />
-                {golfBags
-                  ? golfBags.map(otherEntity => (
+                {clubs
+                  ? clubs.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.clubTypes}
+                        {otherEntity.clubType}
                       </option>
                     ))
                   : null}

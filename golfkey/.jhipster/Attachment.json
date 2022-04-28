@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20220427050138",
+  "changelogDate": "20220428025233",
   "dto": "no",
   "embedded": false,
   "entityTableName": "attachment",
@@ -28,10 +28,10 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityField": "clubTypes",
-      "otherEntityName": "golfBag",
+      "otherEntityField": "clubType",
+      "otherEntityName": "club",
       "otherEntityRelationshipName": "attachment",
-      "relationshipName": "golfBag",
+      "relationshipName": "club",
       "relationshipType": "many-to-one"
     }
   ],

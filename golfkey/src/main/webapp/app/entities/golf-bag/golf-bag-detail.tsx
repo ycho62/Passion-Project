@@ -30,10 +30,6 @@ export const GolfBagDetail = (props: RouteComponentProps<{ id: string }>) => {
             <span id="name">Name</span>
           </dt>
           <dd>{golfBagEntity.name}</dd>
-          <dt>
-            <span id="clubs">Clubs</span>
-          </dt>
-          <dd>{golfBagEntity.clubs}</dd>
           <dt>User</dt>
           <dd>{golfBagEntity.user ? golfBagEntity.user.login : ''}</dd>
         </dl>

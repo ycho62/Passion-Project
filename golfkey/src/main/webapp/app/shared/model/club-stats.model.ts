@@ -1,9 +1,9 @@
-import { IGolfBag } from 'app/shared/model/golf-bag.model';
+import { IClub } from 'app/shared/model/club.model';
 
 export interface IClubStats {
   id?: number;
   clubDistance?: string | null;
-  golfBag?: IGolfBag | null;
+  club?: IClub | null;
 }
 
 export const defaultValue: Readonly<IClubStats> = {};

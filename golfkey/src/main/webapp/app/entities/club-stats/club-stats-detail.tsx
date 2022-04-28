@@ -30,8 +30,8 @@ export const ClubStatsDetail = (props: RouteComponentProps<{ id: string }>) => {
             <span id="clubDistance">Club Distance</span>
           </dt>
           <dd>{clubStatsEntity.clubDistance}</dd>
-          <dt>Golf Bag</dt>
-          <dd>{clubStatsEntity.golfBag ? clubStatsEntity.golfBag.clubTypes : ''}</dd>
+          <dt>Club</dt>
+          <dd>{clubStatsEntity.club ? clubStatsEntity.club.clubType : ''}</dd>
         </dl>
         <Button tag={Link} to="/club-stats" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>

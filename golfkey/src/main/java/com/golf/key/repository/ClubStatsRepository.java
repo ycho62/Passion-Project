@@ -27,14 +27,14 @@ public interface ClubStatsRepository extends JpaRepository<ClubStats, Long> {
     }
 
     @Query(
-        value = "select distinct clubStats from ClubStats clubStats left join fetch clubStats.golfBag",
+        value = "select distinct clubStats from ClubStats clubStats left join fetch clubStats.club",
         countQuery = "select count(distinct clubStats) from ClubStats clubStats"
     )
     Page<ClubStats> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query("select distinct clubStats from ClubStats clubStats left join fetch clubStats.golfBag")
+    @Query("select distinct clubStats from ClubStats clubStats left join fetch clubStats.club")
     List<ClubStats> findAllWithToOneRelationships();
 
-    @Query("select clubStats from ClubStats clubStats left join fetch clubStats.golfBag where clubStats.id =:id")
+    @Query("select clubStats from ClubStats clubStats left join fetch clubStats.club where clubStats.id =:id")
     Optional<ClubStats> findOneWithToOneRelationships(@Param("id") Long id);
 }

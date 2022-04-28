@@ -4,13 +4,13 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
     <!--
-        Added the constraints for entity Attachment.
+        Added the constraints for entity Club.
     -->
-    <changeSet id="20220427050138-2" author="jhipster">
+    <changeSet id="20220428025229-2" author="jhipster">
 
         <addForeignKeyConstraint baseColumnNames="golf_bag_id"
-                                 baseTableName="attachment"
-                                 constraintName="fk_attachment__golf_bag_id"
+                                 baseTableName="club"
+                                 constraintName="fk_club__golf_bag_id"
                                  referencedColumnNames="id"
                                  referencedTableName="golf_bag"/>
     </changeSet>

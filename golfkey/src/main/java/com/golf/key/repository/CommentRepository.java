@@ -27,14 +27,14 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     }
 
     @Query(
-        value = "select distinct comment from Comment comment left join fetch comment.golfBag",
+        value = "select distinct comment from Comment comment left join fetch comment.club",
         countQuery = "select count(distinct comment) from Comment comment"
     )
     Page<Comment> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query("select distinct comment from Comment comment left join fetch comment.golfBag")
+    @Query("select distinct comment from Comment comment left join fetch comment.club")
     List<Comment> findAllWithToOneRelationships();
 
-    @Query("select comment from Comment comment left join fetch comment.golfBag where comment.id =:id")
+    @Query("select comment from Comment comment left join fetch comment.club where comment.id =:id")
     Optional<Comment> findOneWithToOneRelationships(@Param("id") Long id);
 }

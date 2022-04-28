@@ -48,10 +48,12 @@ public class CacheConfiguration {
             createCache(cm, com.golf.key.domain.User.class.getName());
             createCache(cm, com.golf.key.domain.Authority.class.getName());
             createCache(cm, com.golf.key.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.golf.key.domain.Club.class.getName());
+            createCache(cm, com.golf.key.domain.Club.class.getName() + ".attachments");
+            createCache(cm, com.golf.key.domain.Club.class.getName() + ".comments");
+            createCache(cm, com.golf.key.domain.Club.class.getName() + ".clubStats");
             createCache(cm, com.golf.key.domain.GolfBag.class.getName());
-            createCache(cm, com.golf.key.domain.GolfBag.class.getName() + ".attachments");
-            createCache(cm, com.golf.key.domain.GolfBag.class.getName() + ".comments");
-            createCache(cm, com.golf.key.domain.GolfBag.class.getName() + ".clubStats");
+            createCache(cm, com.golf.key.domain.GolfBag.class.getName() + ".clubs");
             createCache(cm, com.golf.key.domain.ClubStats.class.getName());
             createCache(cm, com.golf.key.domain.Comment.class.getName());
             createCache(cm, com.golf.key.domain.Attachment.class.getName());

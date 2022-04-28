@@ -47,7 +47,7 @@ export const ClubStats = (props: RouteComponentProps<{ url: string }>) => {
               <tr>
                 <th>ID</th>
                 <th>Club Distance</th>
-                <th>Golf Bag</th>
+                <th>Club</th>
                 <th />
               </tr>
             </thead>
@@ -60,7 +60,7 @@ export const ClubStats = (props: RouteComponentProps<{ url: string }>) => {
                     </Button>
                   </td>
                   <td>{clubStats.clubDistance}</td>
-                  <td>{clubStats.golfBag ? <Link to={`/golf-bag/${clubStats.golfBag.id}`}>{clubStats.golfBag.clubTypes}</Link> : ''}</td>
+                  <td>{clubStats.club ? <Link to={`/club/${clubStats.club.id}`}>{clubStats.club.clubType}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/club-stats/${clubStats.id}`} color="info" size="sm" data-cy="entityDetailsButton">

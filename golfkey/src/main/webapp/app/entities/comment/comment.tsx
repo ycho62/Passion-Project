@@ -48,7 +48,7 @@ export const Comment = (props: RouteComponentProps<{ url: string }>) => {
                 <th>ID</th>
                 <th>Date</th>
                 <th>Text</th>
-                <th>Golf Bag</th>
+                <th>Club</th>
                 <th />
               </tr>
             </thead>
@@ -62,7 +62,7 @@ export const Comment = (props: RouteComponentProps<{ url: string }>) => {
                   </td>
                   <td>{comment.date ? <TextFormat type="date" value={comment.date} format={APP_DATE_FORMAT} /> : null}</td>
                   <td>{comment.text}</td>
-                  <td>{comment.golfBag ? <Link to={`/golf-bag/${comment.golfBag.id}`}>{comment.golfBag.clubTypes}</Link> : ''}</td>
+                  <td>{comment.club ? <Link to={`/club/${comment.club.id}`}>{comment.club.clubType}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/comment/${comment.id}`} color="info" size="sm" data-cy="entityDetailsButton">

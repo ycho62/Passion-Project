@@ -39,7 +39,7 @@ export const ClubStatsDeleteDialog = (props: RouteComponentProps<{ id: string }>
       <ModalHeader toggle={handleClose} data-cy="clubStatsDeleteDialogHeading">
         Confirm delete operation
       </ModalHeader>
-      <ModalBody id="golfkeyApp.clubStats.delete.question">Are you sure you want to delete this ClubStats?</ModalBody>
+      <ModalBody id="golfKeyApp.clubStats.delete.question">Are you sure you want to delete this ClubStats?</ModalBody>
       <ModalFooter>
         <Button color="secondary" onClick={handleClose}>
           <FontAwesomeIcon icon="ban" />

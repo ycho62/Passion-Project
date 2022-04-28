@@ -8,8 +8,8 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { IGolfBag } from 'app/shared/model/golf-bag.model';
-import { getEntities as getGolfBags } from 'app/entities/golf-bag/golf-bag.reducer';
+import { IClub } from 'app/shared/model/club.model';
+import { getEntities as getClubs } from 'app/entities/club/club.reducer';
 import { IClubStats } from 'app/shared/model/club-stats.model';
 import { getEntity, updateEntity, createEntity, reset } from './club-stats.reducer';
 
@@ -18,7 +18,7 @@ export const ClubStatsUpdate = (props: RouteComponentProps<{ id: string }>) => {
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const golfBags = useAppSelector(state => state.golfBag.entities);
+  const clubs = useAppSelector(state => state.club.entities);
   const clubStatsEntity = useAppSelector(state => state.clubStats.entity);
   const loading = useAppSelector(state => state.clubStats.loading);
   const updating = useAppSelector(state => state.clubStats.updating);
@@ -34,7 +34,7 @@ export const ClubStatsUpdate = (props: RouteComponentProps<{ id: string }>) => {
       dispatch(getEntity(props.match.params.id));
     }
 
-    dispatch(getGolfBags({}));
+    dispatch(getClubs({}));
   }, []);
 
   useEffect(() => {
@@ -47,7 +47,7 @@ export const ClubStatsUpdate = (props: RouteComponentProps<{ id: string }>) => {
     const entity = {
       ...clubStatsEntity,
       ...values,
-      golfBag: golfBags.find(it => it.id.toString() === values.golfBag.toString()),
+      club: clubs.find(it => it.id.toString() === values.club.toString()),
     };
 
     if (isNew) {
@@ -62,14 +62,14 @@ export const ClubStatsUpdate = (props: RouteComponentProps<{ id: string }>) => {
       ? {}
       : {
           ...clubStatsEntity,
-          golfBag: clubStatsEntity?.golfBag?.id,
+          club: clubStatsEntity?.club?.id,
         };
 
   return (
     <div>
       <Row className="justify-content-center">
         <Col md="8">
-          <h2 id="golfkeyApp.clubStats.home.createOrEditLabel" data-cy="ClubStatsCreateUpdateHeading">
+          <h2 id="golfKeyApp.clubStats.home.createOrEditLabel" data-cy="ClubStatsCreateUpdateHeading">
             Create or edit a ClubStats
           </h2>
         </Col>
@@ -91,12 +91,12 @@ export const ClubStatsUpdate = (props: RouteComponentProps<{ id: string }>) => {
                   maxLength: { value: 20, message: 'This field cannot be longer than 20 characters.' },
                 }}
               />
-              <ValidatedField id="club-stats-golfBag" name="golfBag" data-cy="golfBag" label="Golf Bag" type="select">
+              <ValidatedField id="club-stats-club" name="club" data-cy="club" label="Club" type="select">
                 <option value="" key="0" />
-                {golfBags
-                  ? golfBags.map(otherEntity => (
+                {clubs
+                  ? clubs.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.clubTypes}
+                        {otherEntity.clubType}
                       </option>
                     ))
                   : null}

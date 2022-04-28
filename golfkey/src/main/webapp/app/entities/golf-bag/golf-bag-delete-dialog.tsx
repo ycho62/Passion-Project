@@ -39,7 +39,7 @@ export const GolfBagDeleteDialog = (props: RouteComponentProps<{ id: string }>) 
       <ModalHeader toggle={handleClose} data-cy="golfBagDeleteDialogHeading">
         Confirm delete operation
       </ModalHeader>
-      <ModalBody id="golfkeyApp.golfBag.delete.question">Are you sure you want to delete this GolfBag?</ModalBody>
+      <ModalBody id="golfKeyApp.golfBag.delete.question">Are you sure you want to delete this GolfBag?</ModalBody>
       <ModalFooter>
         <Button color="secondary" onClick={handleClose}>
           <FontAwesomeIcon icon="ban" />

@@ -6,6 +6,9 @@ const EntitiesMenu = () => {
   return (
     <>
       {/* prettier-ignore */}
+      <MenuItem icon="asterisk" to="/club">
+        Club
+      </MenuItem>
       <MenuItem icon="asterisk" to="/golf-bag">
         Golf Bag
       </MenuItem>

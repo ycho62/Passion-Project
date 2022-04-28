@@ -39,7 +39,7 @@ export const AttachmentDeleteDialog = (props: RouteComponentProps<{ id: string }
       <ModalHeader toggle={handleClose} data-cy="attachmentDeleteDialogHeading">
         Confirm delete operation
       </ModalHeader>
-      <ModalBody id="golfkeyApp.attachment.delete.question">Are you sure you want to delete this Attachment?</ModalBody>
+      <ModalBody id="golfKeyApp.attachment.delete.question">Are you sure you want to delete this Attachment?</ModalBody>
       <ModalFooter>
         <Button color="secondary" onClick={handleClose}>
           <FontAwesomeIcon icon="ban" />

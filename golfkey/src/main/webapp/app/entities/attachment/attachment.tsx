@@ -49,7 +49,7 @@ export const Attachment = (props: RouteComponentProps<{ url: string }>) => {
                 <th>Name</th>
                 <th>Date</th>
                 <th>File</th>
-                <th>Golf Bag</th>
+                <th>Club</th>
                 <th />
               </tr>
             </thead>
@@ -75,7 +75,7 @@ export const Attachment = (props: RouteComponentProps<{ url: string }>) => {
                       </div>
                     ) : null}
                   </td>
-                  <td>{attachment.golfBag ? <Link to={`/golf-bag/${attachment.golfBag.id}`}>{attachment.golfBag.clubTypes}</Link> : ''}</td>
+                  <td>{attachment.club ? <Link to={`/club/${attachment.club.id}`}>{attachment.club.clubType}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/attachment/${attachment.id}`} color="info" size="sm" data-cy="entityDetailsButton">

@@ -11,7 +11,6 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { IUser } from 'app/shared/model/user.model';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { IGolfBag } from 'app/shared/model/golf-bag.model';
-import { ClubTypes } from 'app/shared/model/enumerations/club-types.model';
 import { getEntity, updateEntity, createEntity, reset } from './golf-bag.reducer';
 
 export const GolfBagUpdate = (props: RouteComponentProps<{ id: string }>) => {
@@ -24,7 +23,6 @@ export const GolfBagUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const loading = useAppSelector(state => state.golfBag.loading);
   const updating = useAppSelector(state => state.golfBag.updating);
   const updateSuccess = useAppSelector(state => state.golfBag.updateSuccess);
-  const clubTypesValues = Object.keys(ClubTypes);
   const handleClose = () => {
     props.history.push('/golf-bag');
   };
@@ -63,7 +61,6 @@ export const GolfBagUpdate = (props: RouteComponentProps<{ id: string }>) => {
     isNew
       ? {}
       : {
-          clubs: 'DRIVER',
           ...golfBagEntity,
           user: golfBagEntity?.user?.id,
         };
@@ -72,7 +69,7 @@ export const GolfBagUpdate = (props: RouteComponentProps<{ id: string }>) => {
     <div>
       <Row className="justify-content-center">
         <Col md="8">
-          <h2 id="golfkeyApp.golfBag.home.createOrEditLabel" data-cy="GolfBagCreateUpdateHeading">
+          <h2 id="golfKeyApp.golfBag.home.createOrEditLabel" data-cy="GolfBagCreateUpdateHeading">
             Create or edit a GolfBag
           </h2>
         </Col>
@@ -95,13 +92,6 @@ export const GolfBagUpdate = (props: RouteComponentProps<{ id: string }>) => {
                   maxLength: { value: 20, message: 'This field cannot be longer than 20 characters.' },
                 }}
               />
-              <ValidatedField label="Clubs" id="golf-bag-clubs" name="clubs" data-cy="clubs" type="select">
-                {clubTypesValues.map(clubTypes => (
-                  <option value={clubTypes} key={clubTypes}>
-                    {clubTypes}
-                  </option>
-                ))}
-              </ValidatedField>
               <ValidatedField id="golf-bag-user" name="user" data-cy="user" label="User" type="select">
                 <option value="" key="0" />
                 {users

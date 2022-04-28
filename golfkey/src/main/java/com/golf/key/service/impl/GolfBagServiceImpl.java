@@ -49,9 +49,6 @@ public class GolfBagServiceImpl implements GolfBagService {
                 if (golfBag.getName() != null) {
                     existingGolfBag.setName(golfBag.getName());
                 }
-                if (golfBag.getClubs() != null) {
-                    existingGolfBag.setClubs(golfBag.getClubs());
-                }
 
                 return existingGolfBag;
             })

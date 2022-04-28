@@ -5,7 +5,7 @@ services:
     image: mysql:8.0.28
     platform: linux/x86_64
     # volumes:
-    #   - ~/volumes/jhipster/golfkey/mysql/:/var/lib/mysql/
+    #   - ~/volumes/jhipster/GolfKey/mysql/:/var/lib/mysql/
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
       - MYSQL_DATABASE=golfkey

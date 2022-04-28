@@ -33,7 +33,7 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:h2:file:./target/h2db/db/golfkey;DB_CLOSE_DELAY=-1
-    username: golfkey
+    username: GolfKey
     password:
     hikari:
       poolName: Hikari
@@ -100,7 +100,7 @@ jhipster:
     authentication:
       jwt:
         # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
-        base64-secret: ZDVmMTZmMmIzZjNiZmU2NWRlNDZhYzgxNTZkOTk2ODhmNGRhYTM4MDQ1NzdlY2VlOTljNjg5ZGUzZGU1OWJkNWNkZmM2YjNkZGUzZmE4MjMyMTdkMmIwYjJkYTBmNDY0YmQ3YmRjNmY0Yzc0ZjNiNDA3OWEwNTdhZjEyZjhkY2E=
+        base64-secret: NmFiMThlMzg3NDgyMDhiNmUxZTRmMGVhZmNjZGY0OWZhNDk3YzFjYzJhZDEyMzgyMmI5NjA5YjY1ZjI3NzIzZGQ2MDVlN2QyZDM4YmFjNDhlMjFjOTQyNzcxMDE5OTJmZGRhMjkxYWY3ZDU1YzY4NmRmOTJkN2MxZGUwZDllOTI=
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
         token-validity-in-seconds-for-remember-me: 2592000

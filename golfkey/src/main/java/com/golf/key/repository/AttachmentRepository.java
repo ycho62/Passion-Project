@@ -27,14 +27,14 @@ public interface AttachmentRepository extends JpaRepository<Attachment, Long> {
     }
 
     @Query(
-        value = "select distinct attachment from Attachment attachment left join fetch attachment.golfBag",
+        value = "select distinct attachment from Attachment attachment left join fetch attachment.club",
         countQuery = "select count(distinct attachment) from Attachment attachment"
     )
     Page<Attachment> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query("select distinct attachment from Attachment attachment left join fetch attachment.golfBag")
+    @Query("select distinct attachment from Attachment attachment left join fetch attachment.club")
     List<Attachment> findAllWithToOneRelationships();
 
-    @Query("select attachment from Attachment attachment left join fetch attachment.golfBag where attachment.id =:id")
+    @Query("select attachment from Attachment attachment left join fetch attachment.club where attachment.id =:id")
     Optional<Attachment> findOneWithToOneRelationships(@Param("id") Long id);
 }

@@ -16,11 +16,11 @@ export const Home = () => {
         <span className="hipster rounded" />
       </Col>
       <Col md="9">
-        <p></p>
-        <p></p>
-        <p></p>
-        <h2>Welcome, Golf Key!</h2>
-        <p className="lead">Unlocking your potential</p>
+      <p></p>
+      <p></p>
+      <p></p>
+        <h2>Welcome, to Golf Key!</h2>
+        <p className="lead">Analyze and record your swings to unlock your best game!</p>
         {account?.login ? (
           <div>
             <Alert color="success">You are logged in as user {account.login}.</Alert>
@@ -47,7 +47,6 @@ export const Home = () => {
             </Alert>
           </div>
         )}
-
       </Col>
     </Row>
   );

@@ -47,7 +47,6 @@ export const GolfBag = (props: RouteComponentProps<{ url: string }>) => {
               <tr>
                 <th>ID</th>
                 <th>Name</th>
-                <th>Clubs</th>
                 <th>User</th>
                 <th />
               </tr>
@@ -61,7 +60,6 @@ export const GolfBag = (props: RouteComponentProps<{ url: string }>) => {
                     </Button>
                   </td>
                   <td>{golfBag.name}</td>
-                  <td>{golfBag.clubs}</td>
                   <td>{golfBag.user ? golfBag.user.login : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">

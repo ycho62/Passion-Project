@@ -39,8 +39,8 @@ public class Attachment implements Serializable {
     private String fileContentType;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "user", "attachments", "comments", "clubStats" }, allowSetters = true)
-    private GolfBag golfBag;
+    @JsonIgnoreProperties(value = { "attachments", "comments", "clubStats", "golfBag" }, allowSetters = true)
+    private Club club;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -109,16 +109,16 @@ public class Attachment implements Serializable {
         this.fileContentType = fileContentType;
     }
 
-    public GolfBag getGolfBag() {
-        return this.golfBag;
+    public Club getClub() {
+        return this.club;
     }
 
-    public void setGolfBag(GolfBag golfBag) {
-        this.golfBag = golfBag;
+    public void setClub(Club club) {
+        this.club = club;
     }
 
-    public Attachment golfBag(GolfBag golfBag) {
-        this.setGolfBag(golfBag);
+    public Attachment club(Club club) {
+        this.setClub(club);
         return this;
     }
 

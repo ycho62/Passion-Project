@@ -1,13 +1,14 @@
-entity GolfBag{
-    name String required maxlength(20)
-    clubs ClubTypes
+entity Club{
+    clubType ClubType
 }
 
+entity GolfBag{
+    name String required maxlength(20)
+}
 
 entity ClubStats{
 	clubDistance String maxlength(20)
 }
-
 
 
 entity Comment {
@@ -21,40 +22,44 @@ entity Attachment{
     file Blob
 }
 
-enum ClubTypes {
+enum ClubType {
    DRIVER("Driver")
    SIXTYWEDGE("60 Degree Wedge")
    FIFTYEIGHTWEDGE("58 Degree Wedge")
    SANDWEDGE("Sand Wedge")
    PWEDGE("Pitching Wedge")
    NINEIRON("9 Iron")
-   EIGHTIRON("9 Iron")
-   SEVENIRON("9 Iron")
+   EIGHTIRON("8 Iron")
+   SEVENIRON("7 Iron")
    SEVENHYBRID("7 Hybrid")
    SEVENWOOD("7 Wood")
-   SIXIRON("9 Iron")
-   SIXHYBRID("7 Hybrid")
+   SIXIRON("6 Iron")
+   SIXHYBRID("6 Hybrid")
    SIXWOOD("6 Wood")
-   FIVEIRON("9 Iron")
-   FIVEHYBRID("7 Hybrid")
+   FIVEIRON("5 Iron")
+   FIVEHYBRID("5 Hybrid")
    FIVEWOOD("5 Wood")
-   FOURIRON("9 Iron")
-   THREEIRON("9 Iron")
+   FOURIRON("4 Iron")
+   THREEIRON("3 Iron")
    THREEHYBRID("3 Hybrid")
    THREEWOOD("3 Wood")
 }
 
 relationship OneToOne{
 	 GolfBag{user(login)} to User{GolfBag(name)}
-     
+
 }
 
 relationship OneToMany{
-    GolfBag{attachment(id)} to Attachment{GolfBag(clubTypes)}
-    GolfBag{comment(id)} to Comment{golfBag(clubTypes)} 
-    GolfBag{clubStats(id)} to ClubStats{golfBag(clubTypes)}
+    GolfBag to Club{golfBag(name)}
+    Club to Attachment{club(clubType))}
+    Club to Comment{club(clubType)}
+    Club to ClubStats{club(clubType)}
 }
 
 
 
 service all with serviceImpl
+
+
+

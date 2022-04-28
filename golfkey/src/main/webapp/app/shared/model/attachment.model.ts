@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { IGolfBag } from 'app/shared/model/golf-bag.model';
+import { IClub } from 'app/shared/model/club.model';
 
 export interface IAttachment {
   id?: number;
@@ -7,7 +7,7 @@ export interface IAttachment {
   date?: string | null;
   fileContentType?: string | null;
   file?: string | null;
-  golfBag?: IGolfBag | null;
+  club?: IClub | null;
 }
 
 export const defaultValue: Readonly<IAttachment> = {};

@@ -1,0 +1,47 @@
+{
+  "applications": "*",
+  "changelogDate": "20220428025229",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "club",
+  "fields": [
+    {
+      "fieldName": "clubType",
+      "fieldType": "ClubType",
+      "fieldValues": "DRIVER (Driver),SIXTYWEDGE (60 Degree Wedge),FIFTYEIGHTWEDGE (58 Degree Wedge),SANDWEDGE (Sand Wedge),PWEDGE (Pitching Wedge),NINEIRON (9 Iron),EIGHTIRON (8 Iron),SEVENIRON (7 Iron),SEVENHYBRID (7 Hybrid),SEVENWOOD (7 Wood),SIXIRON (6 Iron),SIXHYBRID (6 Hybrid),SIXWOOD (6 Wood),FIVEIRON (5 Iron),FIVEHYBRID (5 Hybrid),FIVEWOOD (5 Wood),FOURIRON (4 Iron),THREEIRON (3 Iron),THREEHYBRID (3 Hybrid),THREEWOOD (3 Wood)"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Club",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "attachment",
+      "otherEntityRelationshipName": "club",
+      "relationshipName": "attachment",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "comment",
+      "otherEntityRelationshipName": "club",
+      "relationshipName": "comment",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "clubStats",
+      "otherEntityRelationshipName": "club",
+      "relationshipName": "clubStats",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "name",
+      "otherEntityName": "golfBag",
+      "otherEntityRelationshipName": "club",
+      "relationshipName": "golfBag",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

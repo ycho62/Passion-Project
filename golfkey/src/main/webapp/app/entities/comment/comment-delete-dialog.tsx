@@ -39,7 +39,7 @@ export const CommentDeleteDialog = (props: RouteComponentProps<{ id: string }>) 
       <ModalHeader toggle={handleClose} data-cy="commentDeleteDialogHeading">
         Confirm delete operation
       </ModalHeader>
-      <ModalBody id="golfkeyApp.comment.delete.question">Are you sure you want to delete this Comment?</ModalBody>
+      <ModalBody id="golfKeyApp.comment.delete.question">Are you sure you want to delete this Comment?</ModalBody>
       <ModalFooter>
         <Button color="secondary" onClick={handleClose}>
           <FontAwesomeIcon icon="ban" />

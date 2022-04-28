@@ -1,6 +1,6 @@
 package com.golf.key;
 
-import com.golf.key.GolfkeyApp;
+import com.golf.key.GolfKeyApp;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -12,6 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@SpringBootTest(classes = GolfkeyApp.class)
+@SpringBootTest(classes = GolfKeyApp.class)
 public @interface IntegrationTest {
 }

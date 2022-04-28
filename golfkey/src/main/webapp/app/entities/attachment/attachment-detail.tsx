@@ -49,8 +49,8 @@ export const AttachmentDetail = (props: RouteComponentProps<{ id: string }>) => 
               </div>
             ) : null}
           </dd>
-          <dt>Golf Bag</dt>
-          <dd>{attachmentEntity.golfBag ? attachmentEntity.golfBag.clubTypes : ''}</dd>
+          <dt>Club</dt>
+          <dd>{attachmentEntity.club ? attachmentEntity.club.clubType : ''}</dd>
         </dl>
         <Button tag={Link} to="/attachment" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>

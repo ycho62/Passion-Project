@@ -1,7 +1,6 @@
 package com.golf.key.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.golf.key.domain.enumeration.ClubTypes;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,28 +29,14 @@ public class GolfBag implements Serializable {
     @Column(name = "name", length = 20, nullable = false)
     private String name;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "clubs")
-    private ClubTypes clubs;
-
     @OneToOne
     @JoinColumn(unique = true)
     private User user;
 
     @OneToMany(mappedBy = "golfBag")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "golfBag" }, allowSetters = true)
-    private Set<Attachment> attachments = new HashSet<>();
-
-    @OneToMany(mappedBy = "golfBag")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "golfBag" }, allowSetters = true)
-    private Set<Comment> comments = new HashSet<>();
-
-    @OneToMany(mappedBy = "golfBag")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "golfBag" }, allowSetters = true)
-    private Set<ClubStats> clubStats = new HashSet<>();
+    @JsonIgnoreProperties(value = { "attachments", "comments", "clubStats", "golfBag" }, allowSetters = true)
+    private Set<Club> clubs = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -81,19 +66,6 @@ public class GolfBag implements Serializable {
         this.name = name;
     }
 
-    public ClubTypes getClubs() {
-        return this.clubs;
-    }
-
-    public GolfBag clubs(ClubTypes clubs) {
-        this.setClubs(clubs);
-        return this;
-    }
-
-    public void setClubs(ClubTypes clubs) {
-        this.clubs = clubs;
-    }
-
     public User getUser() {
         return this.user;
     }
@@ -107,96 +79,34 @@ public class GolfBag implements Serializable {
         return this;
     }
 
-    public Set<Attachment> getAttachments() {
-        return this.attachments;
+    public Set<Club> getClubs() {
+        return this.clubs;
     }
 
-    public void setAttachments(Set<Attachment> attachments) {
-        if (this.attachments != null) {
-            this.attachments.forEach(i -> i.setGolfBag(null));
+    public void setClubs(Set<Club> clubs) {
+        if (this.clubs != null) {
+            this.clubs.forEach(i -> i.setGolfBag(null));
         }
-        if (attachments != null) {
-            attachments.forEach(i -> i.setGolfBag(this));
+        if (clubs != null) {
+            clubs.forEach(i -> i.setGolfBag(this));
         }
-        this.attachments = attachments;
+        this.clubs = clubs;
     }
 
-    public GolfBag attachments(Set<Attachment> attachments) {
-        this.setAttachments(attachments);
+    public GolfBag clubs(Set<Club> clubs) {
+        this.setClubs(clubs);
         return this;
     }
 
-    public GolfBag addAttachment(Attachment attachment) {
-        this.attachments.add(attachment);
-        attachment.setGolfBag(this);
+    public GolfBag addClub(Club club) {
+        this.clubs.add(club);
+        club.setGolfBag(this);
         return this;
     }
 
-    public GolfBag removeAttachment(Attachment attachment) {
-        this.attachments.remove(attachment);
-        attachment.setGolfBag(null);
-        return this;
-    }
-
-    public Set<Comment> getComments() {
-        return this.comments;
-    }
-
-    public void setComments(Set<Comment> comments) {
-        if (this.comments != null) {
-            this.comments.forEach(i -> i.setGolfBag(null));
-        }
-        if (comments != null) {
-            comments.forEach(i -> i.setGolfBag(this));
-        }
-        this.comments = comments;
-    }
-
-    public GolfBag comments(Set<Comment> comments) {
-        this.setComments(comments);
-        return this;
-    }
-
-    public GolfBag addComment(Comment comment) {
-        this.comments.add(comment);
-        comment.setGolfBag(this);
-        return this;
-    }
-
-    public GolfBag removeComment(Comment comment) {
-        this.comments.remove(comment);
-        comment.setGolfBag(null);
-        return this;
-    }
-
-    public Set<ClubStats> getClubStats() {
-        return this.clubStats;
-    }
-
-    public void setClubStats(Set<ClubStats> clubStats) {
-        if (this.clubStats != null) {
-            this.clubStats.forEach(i -> i.setGolfBag(null));
-        }
-        if (clubStats != null) {
-            clubStats.forEach(i -> i.setGolfBag(this));
-        }
-        this.clubStats = clubStats;
-    }
-
-    public GolfBag clubStats(Set<ClubStats> clubStats) {
-        this.setClubStats(clubStats);
-        return this;
-    }
-
-    public GolfBag addClubStats(ClubStats clubStats) {
-        this.clubStats.add(clubStats);
-        clubStats.setGolfBag(this);
-        return this;
-    }
-
-    public GolfBag removeClubStats(ClubStats clubStats) {
-        this.clubStats.remove(clubStats);
-        clubStats.setGolfBag(null);
+    public GolfBag removeClub(Club club) {
+        this.clubs.remove(club);
+        club.setGolfBag(null);
         return this;
     }
 
@@ -225,7 +135,6 @@ public class GolfBag implements Serializable {
         return "GolfBag{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
-            ", clubs='" + getClubs() + "'" +
             "}";
     }
 }
