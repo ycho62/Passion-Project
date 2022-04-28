@@ -19,7 +19,7 @@ export const Home = () => {
       <p></p>
       <p></p>
       <p></p>
-        <h2>Welcome, to Golf Key!</h2>
+        <h2>Welcome {account.login}, to Golf Key!</h2>
         <p className="lead">Analyze and record your swings to unlock your best game!</p>
         {account?.login ? (
           <div>
