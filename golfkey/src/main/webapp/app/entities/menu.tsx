@@ -9,9 +9,6 @@ const EntitiesMenu = () => {
       <MenuItem icon="asterisk" to="/club">
         Club
       </MenuItem>
-      <MenuItem icon="asterisk" to="/golf-bag">
-        Golf Bag
-      </MenuItem>
       <MenuItem icon="asterisk" to="/club-stats">
         Club Stats
       </MenuItem>

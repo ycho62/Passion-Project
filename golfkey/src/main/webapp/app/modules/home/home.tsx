@@ -3,7 +3,7 @@ import './home.scss';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Row, Col, Alert } from 'reactstrap';
+import { Row, Col, Alert} from 'reactstrap';
 
 import { useAppSelector } from 'app/config/store';
 
@@ -21,6 +21,7 @@ export const Home = () => {
       <p></p>
         <h2>Welcome {account.login}, to Golf Key!</h2>
         <p className="lead">Analyze and record your swings to unlock your best game!</p>
+
         {account?.login ? (
           <div>
             <Alert color="success">You are logged in as user {account.login}.</Alert>
@@ -47,8 +48,43 @@ export const Home = () => {
             </Alert>
           </div>
         )}
+        <Col>
+          <Link to ='/golf-bag'>
+            <button className="btn btn-primary justify-content-center">All Golf Bags</button>
+          </Link>
+        </Col>
+<div className="space">
+  </div>
+        <Col>
+          <Link to ='/club'>
+            <button className="btn btn-primary justify-content-center">All Clubs</button>
+          </Link>
+        </Col>
+        <div className="space">
+        </div>
+        <Col>
+          <Link to ='/club-stats'>
+            <button className="btn btn-primary justify-content-center">Add Club Distances</button>
+          </Link>
+        </Col>
+        <div className="space">
+        </div>
+        <Col>
+          <Link to ='/comment'>
+            <button className="btn btn-primary justify-content-center">Comments</button>
+          </Link>
+        </Col>
+        <div className="space">
+          </div>
+        <Col>
+          <Link to ='/attatchment'>
+            <button className="btn btn-primary justify-content-center">Attach video to your clubs</button>
+          </Link>
+        </Col>
       </Col>
+
     </Row>
+
   );
 };
 

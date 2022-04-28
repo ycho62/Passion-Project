@@ -22,6 +22,12 @@ a {
   }
 }
 
+.space {
+  width: 4px;
+  height: auto;
+  display: inline-block;
+}
+
 .app-container {
   box-sizing: border-box;
   .view-container {
