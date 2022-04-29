@@ -77,7 +77,7 @@ export const Home = () => {
         <div className="space">
           </div>
         <Col>
-          <Link to ='/attatchment'>
+          <Link to ='/attachment'>
             <button className="btn btn-primary justify-content-center">Attach video to your clubs</button>
           </Link>
         </Col>

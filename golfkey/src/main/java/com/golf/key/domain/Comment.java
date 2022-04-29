@@ -29,7 +29,7 @@ public class Comment implements Serializable {
     private String text;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "attachments", "comments", "clubStats", "golfBag" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "golfBag" }, allowSetters = true)
     private Club club;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

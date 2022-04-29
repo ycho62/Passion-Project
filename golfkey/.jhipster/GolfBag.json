@@ -27,6 +27,7 @@
       "relationshipType": "one-to-one"
     },
     {
+      "otherEntityField": "clubType",
       "otherEntityName": "club",
       "otherEntityRelationshipName": "golfBag",
       "relationshipName": "club",

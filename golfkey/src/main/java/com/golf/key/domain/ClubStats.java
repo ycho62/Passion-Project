@@ -27,7 +27,7 @@ public class ClubStats implements Serializable {
     private String clubDistance;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "attachments", "comments", "clubStats", "golfBag" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "golfBag" }, allowSetters = true)
     private Club club;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

@@ -35,7 +35,7 @@ public class GolfBag implements Serializable {
 
     @OneToMany(mappedBy = "golfBag")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "attachments", "comments", "clubStats", "golfBag" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "golfBag" }, allowSetters = true)
     private Set<Club> clubs = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

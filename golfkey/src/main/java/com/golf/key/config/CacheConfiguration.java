@@ -57,6 +57,7 @@ public class CacheConfiguration {
             createCache(cm, com.golf.key.domain.ClubStats.class.getName());
             createCache(cm, com.golf.key.domain.Comment.class.getName());
             createCache(cm, com.golf.key.domain.Attachment.class.getName());
+            createCache(cm, com.golf.key.domain.Club.class.getName() + ".golfBags");
             // jhipster-needle-ehcache-add-entry
         };
     }

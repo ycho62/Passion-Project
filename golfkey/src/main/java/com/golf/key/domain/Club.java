@@ -3,8 +3,6 @@ package com.golf.key.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.golf.key.domain.enumeration.ClubType;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -27,21 +25,6 @@ public class Club implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "club_type")
     private ClubType clubType;
-
-    @OneToMany(mappedBy = "club")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "club" }, allowSetters = true)
-    private Set<Attachment> attachments = new HashSet<>();
-
-    @OneToMany(mappedBy = "club")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "club" }, allowSetters = true)
-    private Set<Comment> comments = new HashSet<>();
-
-    @OneToMany(mappedBy = "club")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "club" }, allowSetters = true)
-    private Set<ClubStats> clubStats = new HashSet<>();
 
     @ManyToOne
     @JsonIgnoreProperties(value = { "user", "clubs" }, allowSetters = true)
@@ -73,99 +56,6 @@ public class Club implements Serializable {
 
     public void setClubType(ClubType clubType) {
         this.clubType = clubType;
-    }
-
-    public Set<Attachment> getAttachments() {
-        return this.attachments;
-    }
-
-    public void setAttachments(Set<Attachment> attachments) {
-        if (this.attachments != null) {
-            this.attachments.forEach(i -> i.setClub(null));
-        }
-        if (attachments != null) {
-            attachments.forEach(i -> i.setClub(this));
-        }
-        this.attachments = attachments;
-    }
-
-    public Club attachments(Set<Attachment> attachments) {
-        this.setAttachments(attachments);
-        return this;
-    }
-
-    public Club addAttachment(Attachment attachment) {
-        this.attachments.add(attachment);
-        attachment.setClub(this);
-        return this;
-    }
-
-    public Club removeAttachment(Attachment attachment) {
-        this.attachments.remove(attachment);
-        attachment.setClub(null);
-        return this;
-    }
-
-    public Set<Comment> getComments() {
-        return this.comments;
-    }
-
-    public void setComments(Set<Comment> comments) {
-        if (this.comments != null) {
-            this.comments.forEach(i -> i.setClub(null));
-        }
-        if (comments != null) {
-            comments.forEach(i -> i.setClub(this));
-        }
-        this.comments = comments;
-    }
-
-    public Club comments(Set<Comment> comments) {
-        this.setComments(comments);
-        return this;
-    }
-
-    public Club addComment(Comment comment) {
-        this.comments.add(comment);
-        comment.setClub(this);
-        return this;
-    }
-
-    public Club removeComment(Comment comment) {
-        this.comments.remove(comment);
-        comment.setClub(null);
-        return this;
-    }
-
-    public Set<ClubStats> getClubStats() {
-        return this.clubStats;
-    }
-
-    public void setClubStats(Set<ClubStats> clubStats) {
-        if (this.clubStats != null) {
-            this.clubStats.forEach(i -> i.setClub(null));
-        }
-        if (clubStats != null) {
-            clubStats.forEach(i -> i.setClub(this));
-        }
-        this.clubStats = clubStats;
-    }
-
-    public Club clubStats(Set<ClubStats> clubStats) {
-        this.setClubStats(clubStats);
-        return this;
-    }
-
-    public Club addClubStats(ClubStats clubStats) {
-        this.clubStats.add(clubStats);
-        clubStats.setClub(this);
-        return this;
-    }
-
-    public Club removeClubStats(ClubStats clubStats) {
-        this.clubStats.remove(clubStats);
-        clubStats.setClub(null);
-        return this;
     }
 
     public GolfBag getGolfBag() {
